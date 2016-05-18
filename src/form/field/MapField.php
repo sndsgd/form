@@ -10,7 +10,7 @@ class MapField extends ParentFieldAbstract
     /**
      * The field used to validate map keys
      *
-     * @var \sndsgd\field\ScalarField
+     * @var \sndsgd\field\ValueField
      */
     protected $keyField;
 
@@ -24,15 +24,15 @@ class MapField extends ParentFieldAbstract
     /**
      * Set the field for the map keys
      *
-     * @param \sndsgd\form\field\ScalarField $keyField
+     * @param \sndsgd\form\field\ValueField $keyField
      */
-    public function setKeyField(ScalarField $keyField): MapField
+    public function setKeyField(ValueField $keyField): MapField
     {
         $this->keyField = $keyField->setParent($this);
         return $this;
     }
 
-    public function getKeyField(): ScalarField
+    public function getKeyField(): ValueField
     {
         return $this->keyField;
     }

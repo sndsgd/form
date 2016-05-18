@@ -7,7 +7,7 @@ class MapFieldTest extends \PHPUnit_Framework_TestCase
     public function testSetKeyField()
     {
         $field = new MapField("test");
-        $field->setKeyField(new ScalarField("test-key"));
+        $field->setKeyField(new ValueField("test-key"));
     }
 
     public function testSetValueField()
@@ -35,11 +35,11 @@ class MapFieldTest extends \PHPUnit_Framework_TestCase
     {
         $field = (new MapField("test"))
             ->setKeyField(
-                (new ScalarField("test-key"))
+                (new ValueField("test-key"))
                     ->addRules(new \sndsgd\form\rule\AlphaNumRule())
             )
             ->setValueField(
-                (new ScalarField("test-value"))
+                (new ValueField("test-value"))
                     ->addRules(new \sndsgd\form\rule\FloatRule())
             );
 

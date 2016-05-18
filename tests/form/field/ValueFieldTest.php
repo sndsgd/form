@@ -2,7 +2,7 @@
 
 namespace sndsgd\form\field;
 
-class ScalarFieldTest extends \PHPUnit_Framework_TestCase
+class ValueFieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider providerSetDefaultValue
@@ -13,7 +13,7 @@ class ScalarFieldTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException($exception);
         }
 
-        $field = new ScalarField("test");
+        $field = new ValueField("test");
         $field->setDefaultValue($value);
         $this->assertSame($value, $field->getDefaultValue());
     }
@@ -50,7 +50,7 @@ class ScalarFieldTest extends \PHPUnit_Framework_TestCase
         return [
             # fail: an array of multiple values
             [
-                new ScalarField("test"),
+                new ValueField("test"),
                 [1, 2],
                 1,
                 null,
@@ -58,7 +58,7 @@ class ScalarFieldTest extends \PHPUnit_Framework_TestCase
 
             # pass: an array with a single value
             [
-                new ScalarField("test"),
+                new ValueField("test"),
                 [1],
                 0,
                 1,
@@ -66,7 +66,7 @@ class ScalarFieldTest extends \PHPUnit_Framework_TestCase
 
             # pass: no value and not required
             [
-                (new ScalarField("test"))->setDefaultValue(42),
+                (new ValueField("test"))->setDefaultValue(42),
                 null,
                 0,
                 42,
@@ -74,7 +74,7 @@ class ScalarFieldTest extends \PHPUnit_Framework_TestCase
 
             # pass: rules pass validation
             [
-                (new ScalarField("test"))
+                (new ValueField("test"))
                     ->addRules(
                         new \sndsgd\form\rule\RequiredRule(),
                         new \sndsgd\form\rule\IntegerRule()
@@ -86,7 +86,7 @@ class ScalarFieldTest extends \PHPUnit_Framework_TestCase
 
             # fail: a rule doesn't pass validation
             [
-                (new ScalarField("test"))
+                (new ValueField("test"))
                     ->addRules(
                         new \sndsgd\form\rule\RequiredRule(),
                         new \sndsgd\form\rule\IntegerRule()

@@ -40,8 +40,8 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
         $one = new \sndsgd\form\field\ObjectField("one");
         $two = new \sndsgd\form\field\ObjectField("two");
         $arr = new \sndsgd\form\field\ArrayField("arr");
-        $three = new \sndsgd\form\field\ScalarField("three");
-        $mapKey = new \sndsgd\form\field\ScalarField("mapkey");
+        $three = new \sndsgd\form\field\ValueField("three");
+        $mapKey = new \sndsgd\form\field\ValueField("mapkey");
         $map = (new \sndsgd\form\field\MapField("map"))
             ->setKeyField($mapKey);
 

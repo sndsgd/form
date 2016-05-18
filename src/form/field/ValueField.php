@@ -2,13 +2,37 @@
 
 namespace sndsgd\form\field;
 
-class ScalarField extends FieldAbstract
+class ValueField extends FieldAbstract
 {
+    /**
+     * The human readable type of the field
+     *
+     * @var string
+     */
+    protected $type = "";
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): FieldInterface
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     /**
      * Set the default value for the field
      *
      * @param mixed $defaultValue A scalar value
-     * @return \sndsgd\form\field\ScalarField
+     * @return \sndsgd\form\field\ValueField
      * @throws \InvalidArgumentException
      */
     public function setDefaultValue($defaultValue): FieldInterface
@@ -65,6 +89,6 @@ class ScalarField extends FieldAbstract
      */
     public function getDetail(): \sndsgd\form\detail\DetailInterface
     {
-        return new \sndsgd\form\detail\ScalarFieldDetail($this);
+        return new \sndsgd\form\detail\ValueFieldDetail($this);
     }
 }

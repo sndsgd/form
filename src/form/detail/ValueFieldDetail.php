@@ -4,13 +4,18 @@ namespace sndsgd\form\detail;
 
 use \sndsgd\form\rule;
 
-class ScalarFieldDetail extends DetailAbstract
+class ValueFieldDetail extends DetailAbstract
 {
     /**
      * {@inheritdoc}
      */
     public function getType(): string
     {
+        $type = $this->field->getType();
+        if ($type !== "") {
+            return $type;
+        }
+
         $rules = [
             rule\BooleanRule::class => "bool",
             rule\FloatRule::class => "float",

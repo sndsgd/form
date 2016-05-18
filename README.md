@@ -39,18 +39,18 @@ require __DIR__."/vendor/autoload.php";
 
 $form = (new \sndsgd\Form())
     ->addFields(
-        (new field\ScalarField("email"))
+        (new field\ValueField("email"))
             ->setDescription("your account email address")
             ->addRules(
                 new rule\RequiredRule(),
                 new rule\EmailRule()
             ),
-        (new field\ScalarField("password"))
+        (new field\ValueField("password"))
             ->setDescription("your account password")
             ->addRules(
                 new rule\RequiredRule()
             ),
-        (new field\ScalarField("remember"))
+        (new field\ValueField("remember"))
             ->setDescription("whether to create an extended session")
             ->setDefaultValue(false)
             ->addRules(

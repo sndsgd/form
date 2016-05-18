@@ -21,7 +21,7 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [new ArrayField("test"), \InvalidArgumentException::class],
-            [new ScalarField("test"), ""],
+            [new ValueField("test"), ""],
             [new MapField("test"), ""],
             [new ObjectField("test"), ""],
         ];
@@ -47,7 +47,7 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
         $field = (new ArrayField("test"))
             ->addRules(new \sndsgd\form\rule\MaxValueCountRule(2))
             ->setValueField(
-                (new ScalarField("test-value"))
+                (new ValueField("test-value"))
                     ->addRules(new \sndsgd\form\rule\FloatRule())
             );
 

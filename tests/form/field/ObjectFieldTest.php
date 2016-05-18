@@ -11,8 +11,8 @@ class ObjectFieldTest extends \PHPUnit_Framework_TestCase
     {
         $field = (new ObjectField())
             ->addFields(
-                new ScalarField("name"),
-                new ScalarField("name")
+                new ValueField("name"),
+                new ValueField("name")
             );
     }
 
@@ -27,7 +27,7 @@ class ObjectFieldTest extends \PHPUnit_Framework_TestCase
     public function providerHasField()
     {
         $field = (new ObjectField())
-            ->addFields(new ScalarField("title"));
+            ->addFields(new ValueField("title"));
 
         return [
             [$field, "title", true],
@@ -52,7 +52,7 @@ class ObjectFieldTest extends \PHPUnit_Framework_TestCase
     public function testValidateUnknownValues()
     {
         $field = (new ObjectField())
-            ->addFields(new ScalarField("name"));
+            ->addFields(new ValueField("name"));
 
         $validator = new \sndsgd\form\Validator(new \sndsgd\Form());
 
