@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=7.0",
-        "sndsgd/error": "~0.0.3",
+        "sndsgd/error": "dev-master",
         "sndsgd/util": "~1.0.0"
     },
     "require-dev": {
