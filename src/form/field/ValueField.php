@@ -56,7 +56,7 @@ class ValueField extends FieldAbstract
             $len = count($values);
             if ($len > 1) {
                 $validator->addError(
-                    $this->getNestedName($validator->getNameDelimiter()),
+                    $this->getNestedName($validator->getOptions()->getNameDelimiter()),
                     "expecting a single value; encountered $len"
                 );
                 return null;
@@ -74,7 +74,7 @@ class ValueField extends FieldAbstract
         foreach ($this->rules as $rule) {
             if (!$rule->validate($values, $validator)) {
                 $validator->addError(
-                    $this->getNestedName($validator->getNameDelimiter()),
+                    $this->getNestedName($validator->getOptions()->getNameDelimiter()),
                     $rule->getErrorMessage()
                 );
                 return null;

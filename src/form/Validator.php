@@ -18,9 +18,8 @@ class Validator
 
     /**
      * Configuration options
-     * @todo replace this with a config object
      *
-     * @var array
+     * @var ValidatorOptions
      */
     protected $options;
 
@@ -38,17 +37,16 @@ class Validator
      */
     protected $values;
     
-    public function __construct(\sndsgd\Form $form, array $options = [])
+    public function __construct(\sndsgd\Form $form, ValidatorOptions $options = null)
     {
         $this->form = $form;
-        $this->options = array_merge([
-            "nameDelimiter" => static::DEFAULT_NAME_DELIMITER,
-        ], $options);
+        $this->options = $options ?? new ValidatorOptions();
     }
 
     public function addError(string $fieldName, string $message): Validator
     {
-        $this->errors[] = new ValidationError($fieldName, $message);
+        $type = $this->options->getFieldType();
+        $this->errors[] = new ValidationError($type, $fieldName, $message);
         return $this;
     }
 
@@ -65,9 +63,9 @@ class Validator
         return $this->form;
     }
 
-    public function getNameDelimiter(): string
+    public function getOptions(): ValidatorOptions
     {
-        return $this->options["nameDelimiter"];
+        return $this->options;
     }
 
     public function validate(array $values = [])

@@ -29,7 +29,7 @@ abstract class ParentFieldAbstract extends FieldAbstract
 
         if (!is_array($values)) {
             $validator->addError(
-                $this->getNestedName($validator->getNameDelimiter()),
+                $this->getNestedName($validator->getOptions()->getNameDelimiter()),
                 $this->getUnexpectedTypeMessage($expectType, $values)
             );
             return false;
@@ -41,7 +41,7 @@ abstract class ParentFieldAbstract extends FieldAbstract
         foreach ($this->rules as $rule) {
             if (!$rule->validate($values, $validator)) {
                 $validator->addError(
-                    $this->getNestedName($validator->getNameDelimiter()),
+                    $this->getNestedName($validator->getOptions()->getNameDelimiter()),
                     $rule->getErrorMessage()
                 );
                 return false;

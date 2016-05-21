@@ -17,7 +17,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $form = new \sndsgd\Form();
         $options = ["nameDelimiter" => $delimiter];
         $validator = new Validator($form, $options);
-        $this->assertSame($delimiter, $validator->getNameDelimiter());
+        $this->assertSame($delimiter, $validator->getOptions()->getNameDelimiter());
     }
 
     /**

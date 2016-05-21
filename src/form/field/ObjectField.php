@@ -67,11 +67,14 @@ class ObjectField extends FieldAbstract
         }
 
         # create unknown field errors for the remaining fields
-        foreach ($values as $name => $vals) {
-            $validator->addError(
-                $this->getNestedName($validator->getNameDelimiter(), $name),
-                "unknown field"
-            );
+        if (!empty($values)) {
+            $nameDelimiter = $validator->getOptions()->getNameDelimiter();
+            foreach ($values as $name => $vals) {
+                $validator->addError(
+                    $this->getNestedName($nameDelimiter, $name),
+                    "unknown field"
+                );
+            }
         }
 
         return $ret;

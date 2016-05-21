@@ -8,13 +8,23 @@ namespace sndsgd\form;
 class ValidationError extends \sndsgd\Error
 {
     /**
+     * The key for the field value in the array representation
+     *
+     * @var string
+     */
+    protected $fieldType;
+
+    /**
      * The name of the field 
      * @var string
      */
     protected $field;
 
-    public function __construct(string $field, string $message)
+
+    public function __construct(string $fieldType, string $field, string $message)
     {
+        print_r($this->fieldType);
+        $this->fieldType = $fieldType;
         $this->field = $field;
         $this->message = $message;
         $this->code = 0;
@@ -34,7 +44,15 @@ class ValidationError extends \sndsgd\Error
     public function toArray(): array
     {
         $ret = parent::toArray();
-        $ret["field"] = $this->field;
+        if ($this->fieldType !== ValidatorOptions::DEFAULT_FIELD_TYPE) {
+            $ret["parameter"] = [
+                "type" => $this->fieldType,
+                "name" => $this->field,
+            ];
+        } else {
+            $ret[$this->fieldType] = $this->field;
+        }
+        
         return $ret;
     }
 }
