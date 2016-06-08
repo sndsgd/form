@@ -61,4 +61,13 @@ class ObjectFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $errors);
 
     }
+
+    public function testGetDetail()
+    {
+        $field = new ObjectField("test");
+        $this->assertInstanceOf(
+            \sndsgd\form\detail\DetailInterface::class,
+            $field->getDetail()
+        );
+    }
 }

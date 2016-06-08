@@ -12,20 +12,19 @@ class ValidationError extends \sndsgd\Error
      *
      * @var string
      */
-    protected $fieldType;
+    protected $type;
 
     /**
      * The name of the field 
      * @var string
      */
-    protected $field;
+    protected $fieldName;
 
 
-    public function __construct(string $fieldType, string $field, string $message)
+    public function __construct(string $type, string $fieldName, string $message)
     {
-        print_r($this->fieldType);
-        $this->fieldType = $fieldType;
-        $this->field = $field;
+        $this->type = $type;
+        $this->fieldName = $fieldName;
         $this->message = $message;
         $this->code = 0;
     }
@@ -35,7 +34,7 @@ class ValidationError extends \sndsgd\Error
      */
     public function getField(): string
     {
-        return $this->field;
+        return $this->fieldName;
     }
 
     /**
@@ -44,13 +43,13 @@ class ValidationError extends \sndsgd\Error
     public function toArray(): array
     {
         $ret = parent::toArray();
-        if ($this->fieldType !== ValidatorOptions::DEFAULT_FIELD_TYPE) {
+        if ($this->type !== ValidatorOptions::DEFAULT_FIELD_TYPE) {
             $ret["parameter"] = [
-                "type" => $this->fieldType,
-                "name" => $this->field,
+                "type" => $this->type,
+                "name" => $this->fieldName,
             ];
         } else {
-            $ret[$this->fieldType] = $this->field;
+            $ret[$this->type] = $this->fieldName;
         }
         
         return $ret;

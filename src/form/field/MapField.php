@@ -32,11 +32,6 @@ class MapField extends ParentFieldAbstract
         return $this;
     }
 
-    public function getKeyField(): ValueField
-    {
-        return $this->keyField;
-    }
-
     /**
      * Set the field for the map values
      *

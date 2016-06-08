@@ -5,6 +5,29 @@ namespace sndsgd\form\field;
 class ArrayFieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @dataProvider providerSetDefaultValue
+     */
+    public function testSetDefaultValue($value, string $exception)
+    {
+        if ($exception) {
+            $this->setExpectedException($exception);
+        }
+
+        $field = new ArrayField("test");
+        $field->setDefaultValue($value);
+    }
+
+    public function providerSetDefaultValue()
+    {
+        return [
+            [[1, 2, 3], ""],
+            [1, \InvalidArgumentException::class],
+            ["test", \InvalidArgumentException::class],
+            [new \StdClass(), \InvalidArgumentException::class],
+        ];
+    }
+
+    /**
      * @dataProvider providerSetValueField
      */
     public function testSetValueField($valueField, $exception = "")
@@ -92,5 +115,14 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
                 [4.2, 4.2],
             ],
         ];
+    }
+
+    public function testGetDetail()
+    {
+        $field = new ArrayField("test");
+        $this->assertInstanceOf(
+            \sndsgd\form\detail\DetailInterface::class,
+            $field->getDetail()
+        );
     }
 }

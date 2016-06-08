@@ -17,8 +17,6 @@ class MapFieldDetail extends DetailAbstract
      */
     public function getType(): string
     {
-        $keyType = $this->field->getKeyField()->getDetail()->getType();
-        $valueType = $this->field->getValueField()->getDetail()->getType();
         return "map";
     }
 
@@ -27,7 +25,12 @@ class MapFieldDetail extends DetailAbstract
      */
     public function getSignature(): string
     {
-        $keyType = $this->field->getKeyField()->getDetail()->getType();
+        $rc = new \ReflectionClass($this->field);
+        $property = $rc->getProperty("keyField");
+        $property->setAccessible(true);
+
+        $keyField = $property->getValue($this->field);
+        $keyType = $keyfield->getDetail()->getType();
         $valueType = $this->field->getValueField()->getDetail()->getType();
         return "map<$keyType,$valueType>";
     }

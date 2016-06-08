@@ -91,4 +91,13 @@ class MapFieldTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
+    public function testGetDetail()
+    {
+        $field = new MapField("test");
+        $this->assertInstanceOf(
+            \sndsgd\form\detail\DetailInterface::class,
+            $field->getDetail()
+        );
+    }
 }

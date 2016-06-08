@@ -4,6 +4,15 @@ namespace sndsgd\form\field;
 
 class ValueFieldTest extends \PHPUnit_Framework_TestCase
 {
+    public function testSetGetType()
+    {
+        $type = "testType";
+        $field = new ValueField("test");
+        $result = $field->setType($type);
+        $this->assertInstanceOf(ValueField::class, $result);
+        $this->assertSame($type, $field->getType());
+    }
+
     /**
      * @dataProvider providerSetDefaultValue
      */
@@ -96,5 +105,14 @@ class ValueFieldTest extends \PHPUnit_Framework_TestCase
                 null,
             ],
         ];
+    }
+
+    public function testGetDetail()
+    {
+        $field = new ValueField("test");
+        $this->assertInstanceOf(
+            \sndsgd\form\detail\DetailInterface::class,
+            $field->getDetail()
+        );
     }
 }
