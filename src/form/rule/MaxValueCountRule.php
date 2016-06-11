@@ -33,7 +33,7 @@ class MaxValueCountRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "max-values:{$this->maxValues}";
+        return sprintf(_("max-values:%s"), $this->maxValues);
     }
 
     /**
@@ -41,9 +41,18 @@ class MaxValueCountRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        return ($this->maxValues === 1)
-            ? "must be no more than 1 value"
-            : "must be no more than {$this->maxValues} values";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->maxValues);
+        }
+
+        if ($this->maxValues === 1) {
+            return _("must be no more than 1 value");
+        }
+
+        return sprintf(
+            _("must be no more than %s values"),
+            $this->maxValues
+        );
     }
 
     /**

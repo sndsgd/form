@@ -10,12 +10,21 @@ class RequiredRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "required";
+    public function getDescription(): string
+    {
+        return _("required");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "required";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("required");
+    }
 
     /**
      * {@inheritdoc}

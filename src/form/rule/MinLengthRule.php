@@ -33,7 +33,7 @@ class MinLengthRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "min-length:".number_format($this->minLength);
+        return sprintf(_("min-length:%s"), number_format($this->minLength));
     }
 
     /**
@@ -41,12 +41,18 @@ class MinLengthRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        if ($this->minLength === 1) {
-            return "must be at least 1 character";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->minLength);
         }
 
-        $length = number_format($this->minLength);
-        return "must be at least $length characters";
+        if ($this->minLength === 1) {
+            return _("must be at least 1 character");
+        }
+
+        return sprintf(
+            _("must be at least %s characters"),
+            number_format($this->minLength)
+        );
     }
 
     /**

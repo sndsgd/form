@@ -10,6 +10,32 @@ class AlphaNumRuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(AlphaNumRule::class, $rule->getClass());
     }
 
+    public function testGetDescription()
+    {
+        $rule = new AlphaNumRule();
+        $this->assertSame("alphanumeric", $rule->getDescription());
+    }
+
+    /**
+     * @dataProvider providerGetErrorMessage
+     */
+    public function testGetErrorMessage($customMessage, $expect)
+    {
+        $rule = new AlphaNumRule();
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessage()
+    {
+        return [
+            ["", "must contain only alphanumeric characters"],
+            ["custom error message", "custom error message"],
+        ];
+    }
+
     /**
      * @dataProvider providerValidate
      */

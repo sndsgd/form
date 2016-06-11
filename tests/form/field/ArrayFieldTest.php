@@ -5,6 +5,16 @@ namespace sndsgd\form\field;
 class ArrayFieldTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @todo this should go in ParentFieldAbstractTest
+     */
+    public function testGetValueField()
+    {
+        $valueField = new ValueField();
+        $field = new ArrayField("test", $valueField);
+        $this->assertSame($valueField, $field->getValueField());
+    }
+
+    /**
      * @dataProvider providerSetDefaultValue
      */
     public function testSetDefaultValue($value, string $exception)
@@ -13,7 +23,7 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException($exception);
         }
 
-        $field = new ArrayField("test");
+        $field = new ArrayField("test", new ValueField());
         $field->setDefaultValue($value);
     }
 
@@ -36,16 +46,15 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException($exception);
         }
 
-        $field = new ArrayField("test");
-        $field->setValueField($valueField);
+        $field = new ArrayField("test", $valueField);
     }
 
     public function providerSetValueField()
     {
         return [
-            [new ArrayField("test"), \InvalidArgumentException::class],
+            [new ArrayField("test", new ValueField()), \InvalidArgumentException::class],
             [new ValueField("test"), ""],
-            [new MapField("test"), ""],
+            [new MapField("test", new ValueField(), new ValueField()), ""],
             [new ObjectField("test"), ""],
         ];
     }
@@ -67,12 +76,11 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
 
     public function providerValidate()
     {
-        $field = (new ArrayField("test"))
-            ->addRules(new \sndsgd\form\rule\MaxValueCountRule(2))
-            ->setValueField(
-                (new ValueField("test-value"))
-                    ->addRules(new \sndsgd\form\rule\FloatRule())
-            );
+        $valueField = (new ValueField("test-value"))
+            ->addRules(new \sndsgd\form\rule\FloatRule());
+
+        $field = (new ArrayField("test", $valueField))
+            ->addRules(new \sndsgd\form\rule\MaxValueCountRule(2));
 
         return [
             # fail: expecting an array of values
@@ -119,7 +127,7 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDetail()
     {
-        $field = new ArrayField("test");
+        $field = new ArrayField("test", new ValueField());
         $this->assertInstanceOf(
             \sndsgd\form\detail\DetailInterface::class,
             $field->getDetail()

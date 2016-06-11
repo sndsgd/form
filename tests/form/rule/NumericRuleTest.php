@@ -10,10 +10,24 @@ class NumericRuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("numeric", $rule->getDescription());
     }
 
-    public function testGetErrorMessage()
+    /**
+     * @dataProvider providerGetErrorMessage
+     */
+    public function testGetErrorMessage($customMessage, $expect)
     {
         $rule = new NumericRule();
-        $this->assertEquals("must be numeric", $rule->getErrorMessage());
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessage()
+    {
+        return [
+            ["", "must be numeric"],
+            ["custom error message", "custom error message"],
+        ];
     }
 
     /**

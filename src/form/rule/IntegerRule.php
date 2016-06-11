@@ -10,12 +10,21 @@ class IntegerRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "type:integer";
+    public function getDescription(): string
+    {
+        return _("type:integer");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must be an integer";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must be an integer");
+    }
 
     /**
      * {@inheritdoc}

@@ -4,6 +4,32 @@ namespace sndsgd\form\rule;
 
 class FloatRuleTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetDescription()
+    {
+        $rule = new FloatRule();
+        $this->assertSame("type:float", $rule->getDescription());
+    }
+
+    /**
+     * @dataProvider providerGetErrorMessage
+     */
+    public function testGetErrorMessage($customMessage, $expect)
+    {
+        $rule = new FloatRule();
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessage()
+    {
+        return [
+            ["", "must be a float"],
+            ["custom error message", "custom error message"],
+        ];
+    }
+
     /**
      * @dataProvider providerValidate
      */

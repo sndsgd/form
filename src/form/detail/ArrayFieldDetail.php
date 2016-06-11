@@ -25,7 +25,7 @@ class ArrayFieldDetail extends DetailAbstract
      */
     public function getSignature(): string
     {
-        $valueType = $this->field->getValueField()->getDetail()->getType();
+        $valueType = $this->field->getValueField()->getDetail()->getSignature();
         return "array<$valueType>";
     }
 

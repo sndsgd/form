@@ -49,6 +49,22 @@ class ObjectFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($name, $result->getName());
     }
 
+    public function testGetFields()
+    {
+        $field = new ObjectField();
+        $input = [new ValueField("one"), new ValueField("two")];
+        foreach ($input as $child) {
+            $field->addFields($child);
+        }
+
+        $output = $field->getFields();
+        $this->assertTrue(is_array($output));
+        for ($i = 0, $len = count($input); $i < $len; $i++) {
+            $name = $input[$i]->getName();
+            $this->assertSame($input[$i], $output[$name]);
+        }
+    }
+
     public function testValidateUnknownValues()
     {
         $field = (new ObjectField())

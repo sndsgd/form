@@ -10,12 +10,21 @@ class AlphaRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "alpha";
+    public function getDescription(): string
+    {
+        return _("alpha");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must contain only alphabetical characters";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must contain only alphabetical characters");
+    }
 
     /**
      * {@inheritdoc}

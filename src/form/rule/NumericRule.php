@@ -10,12 +10,21 @@ class NumericRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "numeric";
+    public function getDescription(): string
+    {
+        return _("numeric");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must be numeric";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must be numeric");
+    }
 
     /**
      * {@inheritdoc}

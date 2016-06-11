@@ -33,7 +33,7 @@ class MinRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "min:{$this->min}";
+        return sprintf(_("min:%s"), $this->min);
     }
 
     /**
@@ -41,7 +41,10 @@ class MinRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        return "must be at least {$this->min}";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->min);
+        }
+        return sprintf(_("must be at least %s"), $this->min);
     }
 
     /**

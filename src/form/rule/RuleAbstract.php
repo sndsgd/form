@@ -8,33 +8,18 @@ namespace sndsgd\form\rule;
 abstract class RuleAbstract implements RuleInterface
 {
     /**
-     * A short description of what the rule does
+     * Storage for a custom error message
      *
      * @var string
      */
-    protected $description = "value";
-
-    /**
-     * The error message when validation fails
-     * 
-     * @var string
-     */
-    protected $errorMessage = "invalid value";
+    protected $errorMessage = "";
 
     /**
      * {@inheritdoc}
      */
     public function getClass(): string
     {
-        return get_called_class();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
+        return get_class($this);
     }
 
     /**
@@ -44,13 +29,5 @@ abstract class RuleAbstract implements RuleInterface
     {
         $this->errorMessage = $errorMessage;
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getErrorMessage(): string
-    {
-        return $this->errorMessage;
     }
 }

@@ -46,7 +46,7 @@ class OptionRule extends RuleAbstract
     public function getDescription(): string
     {
         $opts = implode(",", $this->getWrappedOptions());
-        return "in:[$opts]";
+        return sprintf(_("in:[%s]"), $opts);
     }
 
     /**
@@ -54,8 +54,11 @@ class OptionRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        $opts = \sndsgd\Arr::implode(", ", $this->getWrappedOptions(), "or ");
-        return "must be $opts";
+        $opts = \sndsgd\Arr::implode(", ", $this->getWrappedOptions(), _("or "));
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $opts);
+        }
+        return sprintf(_("must be %s"), $opts);
     }
 
     /**
@@ -69,7 +72,6 @@ class OptionRule extends RuleAbstract
         if (!isset($this->options[$value])) {
             return false;
         }
-
         $value = $this->options[$value];
         return true;
     }

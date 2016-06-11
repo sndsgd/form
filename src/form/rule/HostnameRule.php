@@ -10,12 +10,21 @@ class HostnameRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "hostname";
+    public function getDescription(): string
+    {
+        return _("hostname");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must consist of at least a scheme and hostname";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must consist of at least a scheme and hostname");
+    }
 
     /**
      * {@inheritdoc}

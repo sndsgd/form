@@ -42,18 +42,22 @@ class MinLengthRuleTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerGetErrorMessage
      */
-    public function testGetErrorMessage($min, $expect)
+    public function testGetErrorMessage($min, $customMessage, $expect)
     {
         $rule = new MinLengthRule($min);
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
         $this->assertEquals($expect, $rule->getErrorMessage());
     }
 
     public function providerGetErrorMessage()
     {
         return [
-            [1, "must be at least 1 character"],
-            [42, "must be at least 42 characters"],
-            [1000, "must be at least 1,000 characters"],
+            [1, "", "must be at least 1 character"],
+            [42, "", "must be at least 42 characters"],
+            [1000, "", "must be at least 1,000 characters"],
+            [42, "test %s", "test 42"],
         ];
     }
 

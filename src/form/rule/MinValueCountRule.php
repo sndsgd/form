@@ -33,7 +33,7 @@ class MinValueCountRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "min-values:{$this->minValues}";
+        return sprintf(_("min-values:%s"), $this->minValues);
     }
 
     /**
@@ -41,9 +41,18 @@ class MinValueCountRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        return ($this->minValues === 1)
-            ? "must be no less than 1 value"
-            : "must be no less than {$this->minValues} values";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->minValues);
+        }
+
+        if ($this->minValues === 1) {
+            return _("must be no less than 1 value");
+        }
+
+        return sprintf(
+            _("must be no less than %s values"),
+            $this->minValues
+        );
     }
 
     /**

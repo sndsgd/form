@@ -10,12 +10,21 @@ class FloatRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "type:float";
+    public function getDescription(): string
+    {
+        return _("type:float");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must be a float";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must be a float");
+    }
 
     /**
      * {@inheritdoc}

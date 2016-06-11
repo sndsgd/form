@@ -4,16 +4,12 @@ namespace sndsgd\form\field;
 
 class MapFieldTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSetKeyField()
+    public function testGetKeyField()
     {
-        $field = new MapField("test");
-        $field->setKeyField(new ValueField("test-key"));
-    }
-
-    public function testSetValueField()
-    {
-        $field = new MapField("test");
-        $field->setValueField(new MapField("test-value"));
+        $keyField = new ValueField("key");
+        $valueField = new ValueField("value");
+        $field = new MapField("", $keyField, $valueField);
+        $this->assertSame($keyField, $field->getKeyField());
     }
 
     /**
@@ -33,15 +29,13 @@ class MapFieldTest extends \PHPUnit_Framework_TestCase
 
     public function providerValidate()
     {
-        $field = (new MapField("test"))
-            ->setKeyField(
-                (new ValueField("test-key"))
-                    ->addRules(new \sndsgd\form\rule\AlphaNumRule())
-            )
-            ->setValueField(
-                (new ValueField("test-value"))
-                    ->addRules(new \sndsgd\form\rule\FloatRule())
-            );
+        $keyField = (new ValueField("test-key"))
+            ->addRules(new \sndsgd\form\rule\AlphaNumRule());
+
+        $valueField = (new ValueField("test-value"))
+            ->addRules(new \sndsgd\form\rule\FloatRule());
+
+        $field = new MapField("test", $keyField, $valueField);
 
         return [
             # fail: expecting a map of values
@@ -94,7 +88,9 @@ class MapFieldTest extends \PHPUnit_Framework_TestCase
 
     public function testGetDetail()
     {
-        $field = new MapField("test");
+
+
+        $field = new MapField("test", new ValueField(), new ValueField());
         $this->assertInstanceOf(
             \sndsgd\form\detail\DetailInterface::class,
             $field->getDetail()

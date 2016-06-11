@@ -10,6 +10,32 @@ class EmailRuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(EmailRule::class, $rule->getClass());
     }
 
+    public function testGetDescription()
+    {
+        $rule = new EmailRule();
+        $this->assertSame("email", $rule->getDescription());
+    }
+
+    /**
+     * @dataProvider providerGetErrorMessage
+     */
+    public function testGetErrorMessage($customMessage, $expect)
+    {
+        $rule = new EmailRule();
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessage()
+    {
+        return [
+            ["", "must be a valid email address"],
+            ["custom error message", "custom error message"],
+        ];
+    }
+
     /**
      * @dataProvider providerValidate
      */

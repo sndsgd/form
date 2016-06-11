@@ -21,26 +21,25 @@ class MapField extends ParentFieldAbstract
      */
     protected $valueField;
 
-    /**
-     * Set the field for the map keys
-     *
-     * @param \sndsgd\form\field\ValueField $keyField
-     */
-    public function setKeyField(ValueField $keyField): MapField
+    public function __construct(
+        string $name,
+        ValueField $keyField,
+        FieldInterface $valueField
+    )
     {
+        parent::__construct($name);
         $this->keyField = $keyField->setParent($this);
-        return $this;
+        $this->valueField = $valueField->setParent($this);
     }
 
     /**
-     * Set the field for the map values
+     * Get the key field
      *
-     * @param \sndsgd\field\FieldInterface $valueField
+     * @return \sndsgd\form\field\ValueField
      */
-    public function setValueField(FieldInterface $valueField): MapField
+    public function getKeyField(): ValueField
     {
-        $this->valueField = $valueField->setParent($this);
-        return $this;
+        return $this->keyField;
     }
 
     /**

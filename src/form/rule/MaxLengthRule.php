@@ -33,7 +33,7 @@ class MaxLengthRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "max-length:".number_format($this->maxLength);
+        return sprintf(_("max-length:%s"), number_format($this->maxLength));
     }
 
     /**
@@ -41,12 +41,18 @@ class MaxLengthRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        if ($this->maxLength === 1) {
-            return "must be no more than 1 character";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->maxLength);
         }
 
-        $length = number_format($this->maxLength);
-        return "must be no more than $length characters"; 
+        if ($this->maxLength === 1) {
+            return _("must be no more than 1 character");
+        }
+
+        return sprintf(
+            _("must be no more than %s characters"),
+            number_format($this->maxLength)
+        ); 
     }
 
     /**

@@ -10,12 +10,21 @@ class BooleanRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "boolean";
+    public function getDescription(): string
+    {
+        return _("type:boolean");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must be a boolean";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must be a boolean");
+    }
 
     /**
      * {@inheritdoc}

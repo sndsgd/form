@@ -48,21 +48,24 @@ class MinRuleTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerGetErrorMessage
      */
-    public function testGetErrorMessage($min, $expect)
+    public function testGetErrorMessage($min, $customMessage, $expect)
     {
         $rule = new MinRule($min);
-        $message = "must be at least {$expect}";
-        $this->assertEquals($message, $rule->getErrorMessage());
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
     }
 
     public function providerGetErrorMessage()
     {
         return [
-            [1, 1],
-            [42, 42],
-            [-100, -100],
-            [.99999, 0.99999],
-            [0.99999, 0.99999],
+            [1, "", "must be at least 1"],
+            [42, "", "must be at least 42"],
+            [-100, "", "must be at least -100"],
+            [.99999, "", "must be at least 0.99999"],
+            [0.99999, "", "must be at least 0.99999"],
+            [42, "test %s", "test 42"],
         ];
     }
 

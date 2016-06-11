@@ -42,18 +42,22 @@ class MaxValueCountRuleTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerGetErrorMessage
      */
-    public function testGetErrorMessage($maxValues, $expect)
+    public function testGetErrorMessage($maxValues, $customMessage, $expect)
     {
         $rule = new MaxValueCountRule($maxValues);
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
         $this->assertEquals($expect, $rule->getErrorMessage());
     }
 
     public function providerGetErrorMessage()
     {
         return [
-            [1, "must be no more than 1 value"],
-            [2, "must be no more than 2 values"],
-            [42, "must be no more than 42 values"],
+            [1, "", "must be no more than 1 value"],
+            [2, "", "must be no more than 2 values"],
+            [42, "", "must be no more than 42 values"],
+            [42, "test %s", "test 42"],
         ];
     }
 

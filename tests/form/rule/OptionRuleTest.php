@@ -31,17 +31,21 @@ class OptionRuleTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerGetErrorMessage
      */
-    public function testGetErrorMessage($options, $expect)
+    public function testGetErrorMessage($options, $customMessage, $expect)
     {
         $rule = new OptionRule($options);
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
         $this->assertSame($expect, $rule->getErrorMessage());
     }
 
     public function providerGetErrorMessage()
     {
         return [
-            [["one" => 1, "two" => 2], "must be 'one', or 'two'"],
-            [[1 => 1, 2 => 2, 3 => 3], "must be 1, 2, or 3"],
+            [["one" => 1, "two" => 2], "", "must be 'one', or 'two'"],
+            [[1 => 1, 2 => 2, 3 => 3], "", "must be 1, 2, or 3"],
+            [[1 => 1, 2 => 2], "test %s test", "test 1, or 2 test"],
         ];
     }
 

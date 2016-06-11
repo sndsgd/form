@@ -2,7 +2,7 @@
 
 namespace sndsgd\form\field;
 
-class AbstractFieldTest extends \PHPUnit_Framework_TestCase
+class FieldAbstractTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
@@ -37,19 +37,18 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
 
     public function providerGetNestedName()
     {
-        $one = new \sndsgd\form\field\ObjectField("one");
-        $two = new \sndsgd\form\field\ObjectField("two");
-        $arr = new \sndsgd\form\field\ArrayField("arr");
-        $three = new \sndsgd\form\field\ValueField("three");
-        $mapKey = new \sndsgd\form\field\ValueField("mapkey");
-        $map = (new \sndsgd\form\field\MapField("map"))
-            ->setKeyField($mapKey);
+        $one = new ObjectField("one");
+        $two = new ObjectField("two");
+        $three = new ValueField("three");
+        $mapKey = new ValueField("mapkey");
+        $map = new MapField("map", $mapKey, new ValueField());
+        $arr = new ArrayField("arr", $map);
 
         $form = (new \sndsgd\Form())
             ->addFields(
                 $one->addFields(
                     $two->addFields($three),
-                    $arr->setValueField($map)
+                    $arr
                 )
             );
 

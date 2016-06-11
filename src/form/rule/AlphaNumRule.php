@@ -10,12 +10,21 @@ class AlphaNumRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
-    protected $description = "alphanumeric";
+    public function getDescription(): string
+    {
+        return _("alphanumeric");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must contain only alphanumeric characters";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must contain only alphanumeric characters");
+    }
 
     /**
      * {@inheritdoc}

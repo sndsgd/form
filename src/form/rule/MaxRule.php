@@ -33,7 +33,7 @@ class MaxRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "max:{$this->max}";
+        return sprintf(_("max:%s"), $this->max);
     }
 
     /**
@@ -41,7 +41,10 @@ class MaxRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        return "must be no greater than {$this->max}";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->max);
+        }
+        return sprintf(_("must be no greater than %s"), $this->max);
     }
 
     /**

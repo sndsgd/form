@@ -13,11 +13,7 @@ class HostnameRuleTest extends \PHPUnit_Framework_TestCase
     public function testGetErrorMessage()
     {
         $rule = new HostnameRule();
-        $rc = new \ReflectionClass($rule);
-        $property = $rc->getProperty("errorMessage");
-        $property->setAccessible(true);
-        $errorMessage = $property->getValue($rule);
-        $this->assertEquals($errorMessage, $rule->getErrorMessage());
+        $this->assertTrue(is_string($rule->getErrorMessage()));
     }
 
     /**

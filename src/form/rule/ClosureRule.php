@@ -102,6 +102,22 @@ class ClosureRule extends RuleAbstract
     /**
      * {@inheritdoc}
      */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getErrorMessage(): string
+    {
+        return $this->errorMessage;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function validate(
         &$value,
         \sndsgd\form\Validator $validator = null

@@ -2,15 +2,17 @@
 
 namespace sndsgd\form\detail;
 
+use \sndsgd\form\field;
+
 class MapFieldDetailTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetType()
     {
-        $field = (new \sndsgd\form\field\MapField("test"))
-            ->setKeyField(new \sndsgd\form\field\ValueField())
-            ->setValueField(new \sndsgd\form\field\ValueField());
+        $keyField = new field\ValueField();
+        $valueField = new field\ValueField();
+        $field = new field\MapField("test", $keyField, $valueField);
 
         $detail = new MapFieldDetail($field);
         $this->assertSame("map", $detail->getType());
-    }    
+    }
 }

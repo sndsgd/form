@@ -9,13 +9,22 @@ class EmailRule extends RuleAbstract
 {
     /**
      * {@inheritdoc}
-     */    
-    protected $description = "email";
+     */
+    public function getDescription(): string
+    {
+        return _("email");
+    }
 
     /**
      * {@inheritdoc}
      */
-    protected $errorMessage = "must be a valid email address";
+    public function getErrorMessage(): string
+    {
+        if ($this->errorMessage) {
+            return $this->errorMessage;
+        }
+        return _("must be a valid email address");
+    }
 
     /**
      * {@inheritdoc}

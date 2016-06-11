@@ -4,6 +4,32 @@ namespace sndsgd\form\rule;
 
 class IntegerRuleTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetDescription()
+    {
+        $rule = new IntegerRule();
+        $this->assertSame("type:integer", $rule->getDescription());
+    }
+
+    /**
+     * @dataProvider providerGetErrorMessage
+     */
+    public function testGetErrorMessage($customMessage, $expect)
+    {
+        $rule = new IntegerRule();
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessage()
+    {
+        return [
+            ["", "must be an integer"],
+            ["custom error message", "custom error message"],
+        ];
+    }
+
     /**
      * @dataProvider providerValidate
      */

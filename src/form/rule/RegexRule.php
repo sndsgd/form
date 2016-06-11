@@ -8,11 +8,6 @@ namespace sndsgd\form\rule;
 class RegexRule extends RuleAbstract
 {
     /**
-     * {@inheritdoc}
-     */
-    protected $errorMessage = null;
-
-    /**
      * The regex to match against values
      * 
      * @var string
@@ -38,7 +33,7 @@ class RegexRule extends RuleAbstract
      */
     public function getDescription(): string
     {
-        return "regex:{$this->regex}";
+        return sprintf(_("regex:%s"), $this->regex);
     }
 
     /**
@@ -46,10 +41,10 @@ class RegexRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        if ($this->errorMessage === null) {
-            return "must match regex pattern";
+        if ($this->errorMessage) {
+            return sprintf($this->errorMessage, $this->regex);
         }
-        return sprintf($this->errorMessage, $this->regex);
+        return sprintf(_("must match regex pattern"), $this->regex);
     }
 
     /**

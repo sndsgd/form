@@ -30,8 +30,8 @@ class MapFieldDetail extends DetailAbstract
         $property->setAccessible(true);
 
         $keyField = $property->getValue($this->field);
-        $keyType = $keyfield->getDetail()->getType();
-        $valueType = $this->field->getValueField()->getDetail()->getType();
+        $keyType = $keyField->getDetail()->getType();
+        $valueType = $this->field->getValueField()->getDetail()->getSignature();
         return "map<$keyType,$valueType>";
     }
 

@@ -27,7 +27,7 @@ class ObjectFieldDetail extends DetailAbstract
     {
         $types = [];
         foreach ($this->field->getFields() as $name => $field) {
-            $type = $field->getDetail()->getType();
+            $type = $field->getDetail()->getSignature();
             $types[$type] = true;
         }
         $types = implode("|", array_keys($types));
@@ -41,6 +41,19 @@ class ObjectFieldDetail extends DetailAbstract
         foreach ($this->field->getFields() as $name => $field) {
             $ret[] = $field->getDetail()->toArray();
         }
+
+        # if the field has a name 
+        $name = $this->field->getName();
+        if (!empty($name)) {
+            $ret = [
+                "name" => $name,
+                "type" => $this->getType(),
+                "signature" => $this->getSignature(),
+                "description" => $this->field->getDescription(),
+                "fields" => $ret,
+            ];
+        }
+
         return $ret;
     }
 

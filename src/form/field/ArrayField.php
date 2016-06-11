@@ -15,9 +15,17 @@ class ArrayField extends ParentFieldAbstract
     /**
      * {@inhertidoc}
      */
-    public function __construct(string $name = "")
+    public function __construct(string $name, FieldInterface $valueField)
     {
+        if ($valueField instanceof ArrayField) {
+            throw new \InvalidArgumentException(
+                "unexpected value provided for 'valueField'; nesting ".
+                "instances of ".__CLASS__." is not permitted"
+            );
+        }
+
         parent::__construct($name);
+        $this->valueField = $valueField->setParent($this);
         $this->defaultValue = [];
     }
 
@@ -38,25 +46,6 @@ class ArrayField extends ParentFieldAbstract
         }
 
         $this->defaultValue = $defaultValue;
-        return $this;
-    }
-
-    /**
-     * Set the field that is used process each value in the array
-     *
-     * @param \sndsgd\form\field\FieldInterface $field
-     * @throws \InvalidArgumentException If `$field` is an ArrayField
-     */
-    public function setValueField(FieldInterface $field): ArrayField
-    {
-        if ($field instanceof ArrayField) {
-            throw new \InvalidArgumentException(
-                "unexpected value provided for 'field'; nesting instances ".
-                "of ".__CLASS__." in not permitted"
-            );
-        }
-
-        $this->valueField = $field->setParent($this);
         return $this;
     }
 

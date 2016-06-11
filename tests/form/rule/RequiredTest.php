@@ -10,10 +10,24 @@ class RequiredTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("required", $rule->getDescription());
     }
 
-    public function testGetErrorMessage()
+    /**
+     * @dataProvider providerGetErrorMessage
+     */
+    public function testGetErrorMessage($customMessage, $expect)
     {
         $rule = new RequiredRule();
-        $this->assertEquals("required", $rule->getErrorMessage());
+        if ($customMessage) {
+            $rule->setErrorMessage($customMessage);
+        }
+        $this->assertEquals($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessage()
+    {
+        return [
+            ["", "required"],
+            ["must have a value", "must have a value"],
+        ];
     }
 
     /**
