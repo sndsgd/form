@@ -25,9 +25,10 @@ composer require sndsgd/form
 ```
 
 
-## Examples
+## Usage
 
-A simple login form
+
+#### Define a form
 
 ```php
 <?php
@@ -35,39 +36,193 @@ A simple login form
 use \sndsgd\form\field;
 use \sndsgd\form\rule;
 
-require __DIR__."/vendor/autoload.php";
+require __DIR__."/../vendor/autoload.php";
 
 $form = (new \sndsgd\Form())
     ->addFields(
-        (new field\ValueField("email"))
-            ->setDescription("your account email address")
+        (new field\ValueField("name"))
+            ->setDescription(_("your name"))
             ->addRules(
                 new rule\RequiredRule(),
                 new rule\EmailRule()
             ),
-        (new field\ValueField("password"))
-            ->setDescription("your account password")
+        (new field\ValueField("email"))
+            ->setDescription(_("your email address"))
             ->addRules(
-                new rule\RequiredRule()
-            ),
-        (new field\ValueField("remember"))
-            ->setDescription("whether to create an extended session")
-            ->setDefaultValue(false)
-            ->addRules(
-                new rule\BooleanRule()
+                new rule\RequiredRule(),
+                new rule\EmailRule()
             )
-    );     
+    );
+```
 
+
+#### Validate input
+
+```php
 $inputValues = [
+    "name" => "",
     "email" => "asd@asd.com",
-    "password" => "thing",
-    "remember" => 1,
 ];
 
 $validator = new \sndsgd\form\Validator($form);
 try {
-    print_r($validator->validate($inputValues));
+    $validatedValues = $validator->validate($inputValues);
+    echo "all values were valid\n";
+    json_encode($validatedValues, \sndsgd\Json::HUMAN);
 } catch (\sndsgd\form\ValidationException $ex) {
-    print_r($ex->getErrors());
+    echo "validation errors encountered\n";
+    json_encode($ex->getErrors(), \sndsgd\Json::HUMAN);
 }
+```
+
+
+#### Get details for docs
+
+```php
+$detail = $form->getDetail();
+echo json_encode($detail, \sndsgd\Json::HUMAN);
+```
+```json
+[
+    {
+        "name": "name",
+        "type": "string",
+        "signature": "string",
+        "description": "your name",
+        "default": null,
+        "rules": {
+            "values": [
+                {
+                    "description": "required",
+                    "errorMessage": "required"
+                },
+                {
+                    "description": "email",
+                    "errorMessage": "must be a valid email address"
+                }
+            ]
+        }
+    },
+    {
+        "name": "email",
+        "type": "string",
+        "signature": "string",
+        "description": "your email address",
+        "default": null,
+        "rules": {
+            "values": [
+                {
+                    "description": "required",
+                    "errorMessage": "required"
+                },
+                {
+                    "description": "email",
+                    "errorMessage": "must be a valid email address"
+                }
+            ]
+        }
+    }
+]
+```
+
+
+## Field Types
+
+
+### Single Value Fields
+
+
+#### `\sndsgd\form\field\ValueField`
+
+This field type can be used to store a single value of various types. In most cases it'll be the base class for any custom fields that you want to create.
+
+```php
+$ageField = (new field\ValueField("age"))
+    ->setDescription(_("The user's age in years"))
+    ->addRules(
+        new rule\IntegerRule(),
+        new rule\MinRule(0),
+        new rule\MaxRule(150)
+    );
+```
+
+We've created several subclasses of `ValueField` for commonly used types. Note that whenever you use one of these fields, you can skip adding the corresponding type rule.
+
+- `\sndsgd\form\field\BooleanField`
+- `\sndsgd\form\field\FloatField`
+- `\sndsgd\form\field\IntegerField`
+- `\sndsgd\form\field\StringField`
+
+
+### Multiple Value Fields
+
+Whenever you need a field that will have multiple values, you'll need to define a field that will contain one or more fields for each value. This allows for each distinct value to be validated on its own, and then all values to be validated with each other.
+
+
+#### `\sndsgd\form\field\ArrayField`
+
+Use an `ArrayField` whenever you have a need for multiple values of the same type.
+
+```php
+$nicknamesValue = (new field\StringField())
+    ->addRules(
+        new rule\MaxLengthRule(64),
+        (new rule\RegexRule("/^[a-z0-9 ]+$/i"))
+            ->setErrorMessage(_("must contain only letters, numbers, or spaces"))
+    );
+
+$nicknamesField = (new field\ArrayField("nicknames", $nicknamesValue))
+    ->setDescription(_("The user's nicknames"))
+    ->addRules(
+        new rule\MaxValueCountRule(5)
+    );
+```
+
+
+#### \sndsgd\form\field\MapField
+
+Use a `MapField` whenever you need to validate both the keys and values of an object.
+
+```json
+{
+    "home": "+1 123-456-7890",
+    "work": "+1 321-654-0987 x123"
+}
+```
+
+```php
+$phoneKey = (new field\StringField())
+    ->setDescription(_("A label for a phone number"))
+    ->addRule(new rule\AlphaNumRule());
+
+$phoneValue = (new field\StringField())
+    ->setDescription(_("A phone number"))
+    ->addRule(new rule\MinLengthRule(10));
+
+$phonesField = (new field\MapField("phoneNumbers", $phoneKey, $phoneValue))
+    ->setDescription(_("The user's phone numbers"))
+    ->addRule(new rule\MaxValueCountRule(5));
+```
+
+
+#### \sndsgd\form\field\ObjectField
+
+Use `ObjectField` whenever you need to validate only the values of an object. It'll use the name of any fields you add to it as the keys.
+
+```php
+$field = (new field\ObjectField())
+    ->addFields(
+        $ageField,
+        $nicknamesField,
+        $phonesField
+    );
+```
+
+
+## Documentation
+
+
+```php
+$detail = $field->getDetail();
+echo json_encode($detail, \sndsgd\Json::HUMAN);
 ```
