@@ -4,11 +4,6 @@ namespace sndsgd\form\field;
 
 abstract class ParentFieldAbstract extends FieldAbstract
 {
-    /**
-     * Get the value field
-     *
-     * @return \sndsgd\form\field\FieldInterface
-     */
     public function getValueField(): FieldInterface
     {
         return $this->valueField;
