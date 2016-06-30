@@ -137,7 +137,9 @@ abstract class FieldAbstract implements FieldInterface
     {
         $key = $rule->getClass();
         if (isset($this->rules[$key])) {
-            throw new \sndsgd\form\DuplicateRuleException($key);
+            throw new \sndsgd\form\DuplicateRuleException(
+                "duplicate rule '$key' detected for '{$this->name}'"
+            );
         }
 
         # the required rule should always be first
