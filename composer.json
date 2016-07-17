@@ -21,7 +21,7 @@
     },
     "require-dev": {
         "satooshi/php-coveralls": "~1.0",
-        "sndsgd/fs": "~0.2.3"
+        "sndsgd/fs": "~0.3.0"
     },
     "autoload": {
         "psr-4": {
