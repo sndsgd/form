@@ -57,7 +57,6 @@ class MapFieldDetail extends DetailAbstract
      */
     public function getValueRules(): array
     {
-        $valueRules = $this->getRulesFromField($this->field->getValueField());
         $valueRules = $this->field->getValueField()->getDetail()->getValueRules();
         return $this->filterRequiredRule($valueRules);
     }

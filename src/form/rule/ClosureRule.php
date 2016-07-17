@@ -20,6 +20,13 @@ class ClosureRule extends RuleAbstract
     protected $classname;
 
     /**
+     * A summary of what the field stores
+     *
+     * @var string
+     */
+    protected $description;
+
+    /**
      * @param callable $handler The function/static method to use for validation
      * @throws \InvalidArgumentException 
      */
@@ -97,6 +104,16 @@ class ClosureRule extends RuleAbstract
             return $this->handler;
         }
         return $this->classname;
+    }
+
+    /**
+     * @param string $description
+     * @return \sndsgd\form\rule\ClosureRule
+     */
+    public function setDescription(string $description): ClosureRule
+    {
+        $this->description = $description;
+        return $this;
     }
 
     /**

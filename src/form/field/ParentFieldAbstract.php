@@ -4,6 +4,8 @@ namespace sndsgd\form\field;
 
 abstract class ParentFieldAbstract extends FieldAbstract
 {
+    protected $valueField;
+
     public function getValueField(): FieldInterface
     {
         return $this->valueField;
