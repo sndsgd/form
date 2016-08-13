@@ -93,7 +93,7 @@ class FilePathTestRule extends RuleAbstract
         if ($value instanceof \sndsgd\fs\entity\EntityInterface) {
             $file = $value;
         } else {
-            $file = \sndsgd\fs::getFile($value);
+            $file = \sndsgd\fs::file($value);
         }
 
         if (!$file->test($this->tests)) {

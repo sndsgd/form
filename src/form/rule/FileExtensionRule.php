@@ -65,7 +65,7 @@ class FileExtensionRule extends \sndsgd\form\rule\RuleAbstract
         \sndsgd\form\Validator $validator = null
     ): bool
     {
-        $file = \sndsgd\Fs::getFile($value);
+        $file = \sndsgd\Fs::file($value);
         $extension = strtolower($file->getExtension());
         if (!in_array($extension, $this->extensions)) {
             return false;
