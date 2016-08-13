@@ -51,7 +51,7 @@ class FileExtensionRule extends \sndsgd\form\rule\RuleAbstract
             $value = $this->extensions[0];
         } else {
             $template = _("must be a file with one of the following extensions: %s");
-            $value = \sndsgd\Arr::implode(", ", $this->extensions, "or ");
+            $value = \sndsgd\Arr::implode(", ", $this->extensions, _("or")." ");
         }
 
         return sprintf($template, $value);

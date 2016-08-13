@@ -50,7 +50,7 @@ class FilesystemParentRule extends \sndsgd\form\rule\RuleAbstract
             return sprintf($template, $this->parentPaths[0]);
         }
 
-        $parents = \sndsgd\Arr::implode(", ", $this->parentPaths, "or ");
+        $parents = \sndsgd\Arr::implode(", ", $this->parentPaths, _("or")." ");
         return sprintf($template, $parents);
     }
 

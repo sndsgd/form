@@ -54,7 +54,7 @@ class OptionRule extends RuleAbstract
      */
     public function getErrorMessage(): string
     {
-        $opts = \sndsgd\Arr::implode(", ", $this->getWrappedOptions(), _("or "));
+        $opts = \sndsgd\Arr::implode(", ", $this->getWrappedOptions(), _("or")." ");
         if ($this->errorMessage) {
             return sprintf($this->errorMessage, $opts);
         }

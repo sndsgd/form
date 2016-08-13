@@ -56,7 +56,7 @@ class FilePathTestRule extends RuleAbstract
                 $desc = $testTypes[0]." "._("and")." ".$testTypes[1];
                 break;
             default:
-                $desc = \sndsgd\Arr::implode(", ", $testTypes, "and ");
+                $desc = \sndsgd\Arr::implode(", ", $testTypes, _("and")." ");
         }
 
         return sprintf(_("must be a %s file"), $desc);
