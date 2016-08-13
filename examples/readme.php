@@ -2,7 +2,7 @@
 
 require __DIR__."/../vendor/autoload.php";
 
-$file = new \sndsgd\fs\File(__DIR__."/../README.md");
+$file = \sndsgd\Fs::file(__DIR__."/../README.md");
 $blocks = [];
 if (preg_match_all("/```php(.*?)```/ms", $file->read(), $matches, PREG_SET_ORDER)) {
     foreach ($matches as list($all, $code)) {

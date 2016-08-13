@@ -17,11 +17,11 @@
     "require": {
         "php": ">=7.0",
         "sndsgd/error": "~0.0.3",
-        "sndsgd/util": ">=1.1.0"
+        "sndsgd/util": ">=1.1.0",
+        "sndsgd/fs": ">=0.3.2"
     },
     "require-dev": {
-        "satooshi/php-coveralls": "~1.0",
-        "sndsgd/fs": ">=0.3.1"
+        "satooshi/php-coveralls": "~1.0"
     },
     "autoload": {
         "psr-4": {
