@@ -69,10 +69,11 @@ class OptionRule extends RuleAbstract
         \sndsgd\form\Validator $validator = null
     ): bool
     {
-        if (!isset($this->options[$value])) {
+        $lcValue = strtolower($value);
+        if (!isset($this->options[$lcValue])) {
             return false;
         }
-        $value = $this->options[$value];
+        $value = $this->options[$lcValue];
         return true;
     }
 }

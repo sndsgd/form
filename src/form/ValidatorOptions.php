@@ -17,7 +17,7 @@ class ValidatorOptions
         $this->nameDelimiter = $nameDelimiter;
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -34,7 +34,7 @@ class ValidatorOptions
         $this->fieldType = $fieldType;
         return $this;
     }
-    
+
     /**
      * @return string
      */
