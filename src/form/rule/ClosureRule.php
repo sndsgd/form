@@ -28,7 +28,7 @@ class ClosureRule extends RuleAbstract
 
     /**
      * @param callable $handler The function/static method to use for validation
-     * @throws \InvalidArgumentException 
+     * @throws \InvalidArgumentException
      */
     public function __construct(callable $handler)
     {

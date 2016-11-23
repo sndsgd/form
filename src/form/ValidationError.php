@@ -15,7 +15,7 @@ class ValidationError extends \sndsgd\Error
     protected $type;
 
     /**
-     * The name of the field 
+     * The name of the field
      * @var string
      */
     protected $fieldName;
@@ -51,7 +51,7 @@ class ValidationError extends \sndsgd\Error
         } else {
             $ret[$this->type] = $this->fieldName;
         }
-        
+
         return $ret;
     }
 }

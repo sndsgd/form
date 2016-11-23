@@ -49,7 +49,7 @@ class FilePathTestRule extends RuleAbstract
         switch (count($testTypes)) {
             case 0:
                 return _("must be a file");
-            case 1: 
+            case 1:
                 $desc = $testTypes[0];
                 break;
             case 2:

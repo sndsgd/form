@@ -62,8 +62,8 @@ class ObjectField extends FieldAbstract
             } else {
                 $value = $field->getDefaultValue();
             }
-            
-            $ret[$name] = $field->validate($value, $validator);    
+
+            $ret[$name] = $field->validate($value, $validator);
         }
 
         # create unknown field errors for the remaining fields

@@ -9,7 +9,7 @@ interface DetailInterface
 {
     /**
      * Get the field type
-     * 
+     *
      * @return string
      */
     public function getType(): string;
@@ -22,7 +22,7 @@ interface DetailInterface
      *  array<int> - An array of integers
      *  object<string,string> - An object with string keys and string values
      *  object<string,array<int>> - An object with string keys and integer array values
-     * 
+     *
      * @return string
      */
     public function getSignature(): string;

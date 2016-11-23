@@ -199,7 +199,7 @@ $nicknamesValue = (new field\StringField())
 
 # create an array field as the parent of the value field
 # note: the rules are for validating all values as a group; if you need to
-# validated each value, add the relevant rules to thee value field
+# validate each value, add the relevant rules to the value field
 $nicknamesField = (new field\ArrayField("nicknames", $nicknamesValue))
     ->setDescription(_("The user's nicknames"))
     ->addRules(
@@ -224,7 +224,7 @@ $phoneValue = (new field\StringField())
     ->addRule(new rule\MinLengthRule(10));
 
 # create a map field using the key and value fields
-# as with the array field, any rules added to a map field are used for 
+# as with the array field, any rules added to a map field are used for
 # validating all the values as a group
 $phonesField = (new field\MapField("phoneNumbers", $phoneKey, $phoneValue))
     ->setDescription(_("The user's phone numbers"))
@@ -245,7 +245,7 @@ $field = (new field\ObjectField())
     );
 ```
 
-#### 
+####
 
 
 

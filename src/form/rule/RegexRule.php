@@ -9,7 +9,7 @@ class RegexRule extends RuleAbstract
 {
     /**
      * The regex to match against values
-     * 
+     *
      * @var string
      */
     protected $regex;

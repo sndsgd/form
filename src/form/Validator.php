@@ -36,7 +36,7 @@ class Validator
      * @var array
      */
     protected $values;
-    
+
     public function __construct(\sndsgd\Form $form, ValidatorOptions $options = null)
     {
         $this->form = $form;
@@ -75,7 +75,7 @@ class Validator
         if (empty($this->errors)) {
             return $results;
         }
-        
+
         throw (new \sndsgd\form\ValidationException("validation error"))
             ->setErrors($this->errors);
     }

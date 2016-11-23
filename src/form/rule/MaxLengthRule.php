@@ -52,7 +52,7 @@ class MaxLengthRule extends RuleAbstract
         return sprintf(
             _("must be no more than %s characters"),
             number_format($this->maxLength)
-        ); 
+        );
     }
 
     /**

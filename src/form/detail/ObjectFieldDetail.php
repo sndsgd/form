@@ -42,7 +42,7 @@ class ObjectFieldDetail extends DetailAbstract
             $ret[] = $field->getDetail()->toArray();
         }
 
-        # if the field has a name 
+        # if the field has a name
         $name = $this->field->getName();
         if (!empty($name)) {
             $ret = [
