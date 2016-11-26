@@ -3,7 +3,7 @@
 namespace sndsgd\form\rule;
 
 /**
- * Ensure a value is at least a certain number or characters
+ * Ensure a value is at least a certain number of characters
  */
 class MaxLengthRule extends RuleAbstract
 {
