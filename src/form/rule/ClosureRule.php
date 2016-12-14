@@ -2,7 +2,6 @@
 
 namespace sndsgd\form\rule;
 
-use \sndsgd\form\field\FieldInterface;
 use \sndsgd\Func;
 
 class ClosureRule extends RuleAbstract

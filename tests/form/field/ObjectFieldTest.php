@@ -72,7 +72,7 @@ class ObjectFieldTest extends \PHPUnit_Framework_TestCase
 
         $validator = new \sndsgd\form\Validator(new \sndsgd\Form());
 
-        $result = $field->validate(['unknown' => 0], $validator);
+        $result = $field->validate(["unknown" => 0], $validator);
         $errors = $validator->getErrors();
         $this->assertCount(1, $errors);
 

@@ -13,14 +13,14 @@ class UrlRule extends RuleAbstract
      * @var array<string,string>
      */
     protected static $validParts = [
-        'scheme' => true,
-        'user' => true,
-        'pass' => true,
-        'host' => true,
-        'port' => true,
-        'path' => true,
-        'query' => true,
-        'fragment' => true,
+        "scheme" => true,
+        "user" => true,
+        "pass" => true,
+        "host" => true,
+        "port" => true,
+        "path" => true,
+        "query" => true,
+        "fragment" => true,
     ];
 
     /**

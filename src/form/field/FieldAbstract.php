@@ -15,7 +15,7 @@ abstract class FieldAbstract implements FieldInterface
 
     /**
      * The name of the field
-     * 
+     *
      * @var string
      */
     protected $name = "";
@@ -28,7 +28,7 @@ abstract class FieldAbstract implements FieldInterface
     protected $description = "";
 
     /**
-     * 
+     *
      * @var array<string,\sndsgd\form\rule\RuleInterface>
      */
     protected $rules = [];
@@ -76,7 +76,7 @@ abstract class FieldAbstract implements FieldInterface
 
     /**
      * Get a field's nested name
-     * 
+     *
      * @param string $delimiter
      * @param string $name A name to append to the result
      * @return string
@@ -91,7 +91,7 @@ abstract class FieldAbstract implements FieldInterface
         while ($parent = $parent->getParent()) {
             $name = $parent->getName();
             if ($name) {
-                array_unshift($keys, $parent->getName());    
+                array_unshift($keys, $parent->getName());
             }
         }
         return implode($delimiter, $keys);

@@ -9,7 +9,7 @@ interface FieldInterface
     /**
      * The classname of the rule that validates a required value
      *
-     * This can be used by \sndsgd\form\field\FieldInterface::validate to 
+     * This can be used by \sndsgd\form\field\FieldInterface::validate to
      * determine whether an empty value should be validated
      *
      * @var string

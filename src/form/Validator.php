@@ -37,6 +37,7 @@ class Validator
      */
     protected $values;
 
+
     public function __construct(\sndsgd\Form $form, ValidatorOptions $options = null)
     {
         $this->form = $form;

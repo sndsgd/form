@@ -16,7 +16,7 @@ class ValueFieldTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerSetDefaultValue
      */
-    public function testSetDefaultValue($value, $exception = '')
+    public function testSetDefaultValue($value, $exception = "")
     {
         if ($exception) {
             $this->setExpectedException($exception);
