@@ -8,38 +8,40 @@ class ValidatorOptions
 
     protected $nameDelimiter = " 》";
     protected $fieldType = self::DEFAULT_FIELD_TYPE;
+    protected $allowUnknownFields = false;
 
-    /**
-     * @param string $nameDelimiter
-     */
-    public function setNameDelimiter($nameDelimiter)
+    public function setNameDelimiter(string $nameDelimiter): ValidatorOptions
     {
         $this->nameDelimiter = $nameDelimiter;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getNameDelimiter()
+    public function getNameDelimiter(): string
     {
         return $this->nameDelimiter;
     }
 
-    /**
-     * @param string $fieldType
-     */
-    public function setFieldType($fieldType)
+    public function setFieldType(string $fieldType): ValidatorOptions
     {
         $this->fieldType = $fieldType;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getFieldType()
+    public function getFieldType(): string
     {
         return $this->fieldType;
+    }
+
+    public function setAllowUnknownFields(
+        bool $allowUnknownFields = false
+    ): ValidatorOptions
+    {
+        $this->allowUnknownFields = $allowUnknownFields;
+        return $this;
+    }
+
+    public function getAllowUnknownFields(): bool
+    {
+        return $this->allowUnknownFields;
     }
 }
