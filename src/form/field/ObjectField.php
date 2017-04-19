@@ -67,7 +67,7 @@ class ObjectField extends FieldAbstract
         }
 
         # create unknown field errors for the remaining fields
-        if (!empty($values)) {
+        if (!$validator->getOptions()->getAllowUnknownFields() && !empty($values)) {
             $nameDelimiter = $validator->getOptions()->getNameDelimiter();
             foreach ($values as $name => $vals) {
                 $validator->addError(

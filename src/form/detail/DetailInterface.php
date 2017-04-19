@@ -28,7 +28,7 @@ interface DetailInterface
     public function getSignature(): string;
 
     /**
-     * Get all the rules that are used to validate mutliple values
+     * Get all the rules that are used to validate multiple values
      *
      * @return array
      */

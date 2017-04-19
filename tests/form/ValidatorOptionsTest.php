@@ -16,7 +16,6 @@ class ValidatorOptionsTest extends \PHPUnit_Framework_TestCase
         $delimiter = "blegh";
         $options = new ValidatorOptions();
         $result = $options->setNameDelimiter($delimiter);
-        $this->assertInstanceOf(ValidatorOptions::class, $result);
         $this->assertSame($delimiter, $options->getNameDelimiter());
     }
 
@@ -29,7 +28,19 @@ class ValidatorOptionsTest extends \PHPUnit_Framework_TestCase
         $type = "blegh";
         $options = new ValidatorOptions();
         $result = $options->setFieldType($type);
-        $this->assertInstanceOf(ValidatorOptions::class, $result);
         $this->assertSame($type, $options->getFieldType());
-    }    
+    }
+
+    /**
+     * @covers ::setAllowUnknownFields
+     * @covers ::getAllowUnknownFields
+     */
+    public function testSetGetAllowUnknownFields()
+    {
+        $options = new ValidatorOptions();
+        $this->assertFalse($options->getAllowUnknownFields());
+
+        $options->setAllowUnknownFields(true);
+        $this->assertTrue($options->getAllowUnknownFields());
+    }
 }
