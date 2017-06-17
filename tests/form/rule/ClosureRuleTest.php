@@ -63,6 +63,32 @@ class ClosureRuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider provideSetGetDescription
+     */
+    public function testSetGetDescription($description)
+    {
+        $rule = new ClosureRule(__CLASS__."::validRule");
+        $rule->setDescription($description);
+        $this->assertSame($description, $rule->getDescription());
+    }
+
+    public function provideSetGetDescription(): array
+    {
+        return [
+            ["testing..."],
+            ["a simple description"],
+        ];
+    }
+
+    public function testGetErrorMessageCustom()
+    {
+        $rule = new ClosureRule(__CLASS__."::validRule");
+        $expect = "custom error message";
+        $rule->setErrorMessage($expect);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
+    /**
      * @dataProvider providerValidate
      */
     public function testValidate($handler, $value, $expect)

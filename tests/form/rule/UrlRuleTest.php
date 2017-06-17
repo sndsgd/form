@@ -56,6 +56,14 @@ class UrlRuleTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function testGetErrorMessageCustom()
+    {
+        $rule = new UrlRule(["host"]);
+        $expect = "custom error message";
+        $rule->setErrorMessage($expect);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
     /**
      * @dataProvider providerValidate
      */
@@ -68,6 +76,7 @@ class UrlRuleTest extends \PHPUnit_Framework_TestCase
     public function providerValidate()
     {
         return [
+            [["host"], "http://:80", false],
             [["host"], "nooooooo", false],
             [["host"], "https://something.com", true],
             [["scheme", "host"], "https://something.com", true],

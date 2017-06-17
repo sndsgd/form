@@ -38,6 +38,14 @@ class IpAddressRuleTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function testGetErrorMessageCustom()
+    {
+        $rule = new IpAddressRule();
+        $expect = "custom error message";
+        $rule->setErrorMessage($expect);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
     /**
      * @dataProvider providerValidate
      */
@@ -50,6 +58,7 @@ class IpAddressRuleTest extends \PHPUnit_Framework_TestCase
     public function providerValidate()
     {
         return [
+            [false, "asd", false],
             [false, "123.123.123.123", true],
             [false, "123.123.123.123:123", true],
             [true, "123.123.123.123", false],

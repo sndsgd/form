@@ -58,6 +58,24 @@ class MaxLengthRuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider providerGetErrorMessageCustom
+     */
+    public function testGetErrorMessageCustom($max, $message, $expect)
+    {
+        $rule = new MaxLengthRule($max);
+        $rule->setErrorMessage($message);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessageCustom()
+    {
+        return [
+            [123, "test %s test", "test 123 test"],
+            [123, "test two", "test two"],
+        ];
+    }
+
+    /**
      * @dataProvider providerValidate
      */
     public function testValidate($max, $test, $expect)

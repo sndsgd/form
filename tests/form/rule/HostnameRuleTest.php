@@ -10,10 +10,19 @@ class HostnameRuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("hostname", $rule->getDescription());
     }
 
-    public function testGetErrorMessage()
+    public function testGetErrorMessageDefault()
     {
         $rule = new HostnameRule();
-        $this->assertTrue(is_string($rule->getErrorMessage()));
+        $expect = "must consist of at least a scheme and hostname";
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
+    public function testGetErrorMessageCustom()
+    {
+        $rule = new HostnameRule();
+        $expect = "custom error message";
+        $rule->setErrorMessage($expect);
+        $this->assertSame($expect, $rule->getErrorMessage());
     }
 
     /**
