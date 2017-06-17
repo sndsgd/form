@@ -13,7 +13,7 @@ class MapFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getType(): string
     {
@@ -21,7 +21,7 @@ class MapFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getSignature(): string
     {
@@ -36,7 +36,7 @@ class MapFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getFieldRules(): array
     {
@@ -44,7 +44,7 @@ class MapFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getKeyRules(): array
     {
@@ -53,7 +53,7 @@ class MapFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getValueRules(): array
     {

@@ -29,7 +29,7 @@ class FileExtensionRule extends \sndsgd\form\rule\RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDescription(): string
     {
@@ -42,7 +42,7 @@ class FileExtensionRule extends \sndsgd\form\rule\RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getErrorMessage(): string
     {
@@ -58,7 +58,7 @@ class FileExtensionRule extends \sndsgd\form\rule\RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate(
         &$value,

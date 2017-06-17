@@ -13,7 +13,7 @@ class ArrayFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getType(): string
     {
@@ -21,7 +21,7 @@ class ArrayFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getSignature(): string
     {
@@ -30,7 +30,7 @@ class ArrayFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getFieldRules(): array
     {
@@ -38,7 +38,7 @@ class ArrayFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getKeyRules(): array
     {
@@ -46,7 +46,7 @@ class ArrayFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getValueRules(): array
     {

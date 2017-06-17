@@ -23,7 +23,7 @@ class DateTimeRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDescription(): string
     {
@@ -35,7 +35,7 @@ class DateTimeRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getErrorMessage(): string
     {
@@ -54,7 +54,7 @@ class DateTimeRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate(
         &$value,

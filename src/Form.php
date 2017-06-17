@@ -7,8 +7,8 @@ class Form extends \sndsgd\form\field\ObjectField
     /**
      * Forms cannot have names
      * If they do it'll mess up nested naming structures
-     * 
-     * {@inheritdoc}
+     *
+     * @inheritDoc
      */
     public function __construct(string $name = "")
     {

@@ -47,7 +47,7 @@ class UrlRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDescription(): string
     {
@@ -55,7 +55,7 @@ class UrlRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getErrorMessage(): string
     {
@@ -66,7 +66,7 @@ class UrlRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      *
      * Note: `filter_var()` with `FILTER_VALIDATE_URL` doesn't seem to be
      * able to handle non ascii charsets

@@ -48,7 +48,7 @@ class ValueField extends FieldAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate($values, \sndsgd\form\Validator $validator)
     {
@@ -85,7 +85,7 @@ class ValueField extends FieldAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDetail(): \sndsgd\form\detail\DetailInterface
     {

@@ -95,7 +95,7 @@ class ClosureRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getClass(): string
     {
@@ -116,7 +116,7 @@ class ClosureRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDescription(): string
     {
@@ -124,7 +124,7 @@ class ClosureRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getErrorMessage(): string
     {
@@ -132,7 +132,7 @@ class ClosureRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate(
         &$value,

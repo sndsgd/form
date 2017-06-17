@@ -43,7 +43,7 @@ class MapField extends ParentFieldAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate($values, \sndsgd\form\Validator $validator)
     {
@@ -76,7 +76,7 @@ class MapField extends ParentFieldAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDetail(): \sndsgd\form\detail\DetailInterface
     {

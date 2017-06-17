@@ -13,7 +13,7 @@ class ObjectFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getType(): string
     {
@@ -21,7 +21,7 @@ class ObjectFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getSignature(): string
     {
@@ -58,7 +58,7 @@ class ObjectFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getFieldRules(): array
     {
@@ -66,7 +66,7 @@ class ObjectFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getKeyRules(): array
     {
@@ -74,7 +74,7 @@ class ObjectFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getValueRules(): array
     {

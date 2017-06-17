@@ -29,7 +29,7 @@ class MaxLengthRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDescription(): string
     {
@@ -37,7 +37,7 @@ class MaxLengthRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getErrorMessage(): string
     {
@@ -56,7 +56,7 @@ class MaxLengthRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate(
         &$value,

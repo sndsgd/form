@@ -8,7 +8,7 @@ namespace sndsgd\form\rule;
 class IntegerRule extends RuleAbstract
 {
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDescription(): string
     {
@@ -16,7 +16,7 @@ class IntegerRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getErrorMessage(): string
     {
@@ -27,7 +27,7 @@ class IntegerRule extends RuleAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate(&$value, \sndsgd\form\Validator $validator = null): bool
     {

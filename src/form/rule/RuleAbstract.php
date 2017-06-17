@@ -15,7 +15,7 @@ abstract class RuleAbstract implements RuleInterface
     protected $errorMessage = "";
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getClass(): string
     {
@@ -23,7 +23,7 @@ abstract class RuleAbstract implements RuleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function setErrorMessage(string $errorMessage): RuleInterface
     {

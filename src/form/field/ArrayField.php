@@ -50,7 +50,7 @@ class ArrayField extends ParentFieldAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function validate($values, \sndsgd\form\Validator $validator)
     {
@@ -73,7 +73,7 @@ class ArrayField extends ParentFieldAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getDetail(): \sndsgd\form\detail\DetailInterface
     {

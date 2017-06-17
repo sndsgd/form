@@ -30,7 +30,7 @@ class ValidationError extends \sndsgd\Error
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getField(): string
     {
@@ -38,7 +38,7 @@ class ValidationError extends \sndsgd\Error
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function toArray(): array
     {

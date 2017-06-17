@@ -7,7 +7,7 @@ use \sndsgd\form\rule;
 class ValueFieldDetail extends DetailAbstract
 {
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getType(): string
     {
@@ -33,7 +33,7 @@ class ValueFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getSignature(): string
     {
@@ -41,7 +41,7 @@ class ValueFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getFieldRules(): array
     {
@@ -49,7 +49,7 @@ class ValueFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getKeyRules(): array
     {
@@ -57,7 +57,7 @@ class ValueFieldDetail extends DetailAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getValueRules(): array
     {
