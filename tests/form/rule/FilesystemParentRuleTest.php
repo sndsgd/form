@@ -53,7 +53,7 @@ class FilesystemParentRuleTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                ["/a/b"], 
+                ["/a/b"],
                 "value must be a child of /a/b",
             ],
             [
@@ -78,6 +78,7 @@ class FilesystemParentRuleTest extends \PHPUnit_Framework_TestCase
             [["/a/b"], "/c/d", false],
             [["/a/b", "/c/d"], "/c/d/e", true],
             [["/a/b"], "/a/c/../b/e", true],
+            [["/a/b"], \sndsgd\Fs::dir("/a/b/c"), true],
         ];
     }
 }

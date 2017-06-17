@@ -17,7 +17,7 @@ class IpAddressRule extends RuleAbstract
     /**
      * @param bool $requirePort Whether a port is required
      */
-    public function __construct(bool $requirePort)
+    public function __construct(bool $requirePort = false)
     {
         $this->requirePort = $requirePort;
     }
@@ -36,7 +36,7 @@ class IpAddressRule extends RuleAbstract
     public function getErrorMessage(): string
     {
         if ($this->errorMessage) {
-            return sprintf($this->errorMessage, $this->length);
+            return $this->errorMessage;
         }
 
         if ($this->requirePort) {

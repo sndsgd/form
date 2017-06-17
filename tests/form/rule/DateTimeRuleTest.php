@@ -38,6 +38,14 @@ class DateTimeRuleTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function testGetErrorMessageCustom()
+    {
+        $rule = new DateTimeRule();
+        $expect = "custom error message";
+        $rule->setErrorMessage($expect);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
     /**
      * @dataProvider providerValidate
      */

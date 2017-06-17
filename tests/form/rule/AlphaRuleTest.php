@@ -10,6 +10,27 @@ class AlphaRuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(AlphaRule::class, $rule->getClass());
     }
 
+    public function testGetDescription()
+    {
+        $rule = new AlphaRule();
+        $this->assertSame("alpha", $rule->getDescription());
+    }
+
+    public function testGetErrorMessageDefault()
+    {
+        $rule = new AlphaRule();
+        $expect = "must contain only alphabetical characters";
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
+    public function testGetErrorMessageCustom()
+    {
+        $rule = new AlphaRule();
+        $expect = "custom error message";
+        $rule->setErrorMessage($expect);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
     /**
      * @dataProvider providerValidate
      */

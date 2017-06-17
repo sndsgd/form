@@ -58,6 +58,24 @@ class LengthRuleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider providerGetErrorMessageCustom
+     */
+    public function testGetErrorMessageCustom($length, $message, $expect)
+    {
+        $rule = new LengthRule($length);
+        $rule->setErrorMessage($message);
+        $this->assertSame($expect, $rule->getErrorMessage());
+    }
+
+    public function providerGetErrorMessageCustom()
+    {
+        return [
+            [123, "test %s test", "test 123 test"],
+            [123, "test two", "test two"],
+        ];
+    }
+
+    /**
      * @dataProvider providerValidate
      */
     public function testValidate($length, $test, $expect)
