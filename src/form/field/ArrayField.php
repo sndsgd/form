@@ -13,9 +13,20 @@ class ArrayField extends ParentFieldAbstract
     protected $valueField;
 
     /**
+     * Whether to cast non array values to an array during validation
+     *
+     * @var bool
+     */
+    protected $isOneOrMore;
+
+    /**
      * {@inhertidoc}
      */
-    public function __construct(string $name, FieldInterface $valueField)
+    public function __construct(
+        string $name,
+        FieldInterface $valueField,
+        bool $isOneOrMore = false
+    )
     {
         if ($valueField instanceof ArrayField) {
             throw new \InvalidArgumentException(
@@ -26,7 +37,18 @@ class ArrayField extends ParentFieldAbstract
 
         parent::__construct($name);
         $this->valueField = $valueField->setParent($this);
+        $this->isOneOrMore = $isOneOrMore;
         $this->defaultValue = [];
+    }
+
+    /**
+     * Determine whether validation allows for casting a value into an array
+     *
+     * @return bool
+     */
+    public function isOneOrMore(): bool
+    {
+        return $this->isOneOrMore;
     }
 
     /**
@@ -54,6 +76,10 @@ class ArrayField extends ParentFieldAbstract
      */
     public function validate($values, \sndsgd\form\Validator $validator)
     {
+        if ($this->isOneOrMore && !is_array($values)) {
+            $values = (array) $values;
+        }
+
         if (!$this->validateCollection("array", $values, $validator)) {
             return [];
         }

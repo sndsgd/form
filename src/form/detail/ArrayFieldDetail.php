@@ -26,7 +26,19 @@ class ArrayFieldDetail extends DetailAbstract
     public function getSignature(): string
     {
         $valueType = $this->field->getValueField()->getDetail()->getSignature();
-        return "array<$valueType>";
+
+        # this currently is not allowed because nested arrays aren't allowed
+        # wrap union types in parens
+        # if (strpos($valueType, "|") !== false) {
+        #     $valueType = "($valueType)";
+        # }
+
+        $arraySignature = "array<$valueType>";
+        if (!$this->field->isOneOrMore()) {
+            return $arraySignature;
+        }
+
+        return "$valueType|$arraySignature";
     }
 
     /**

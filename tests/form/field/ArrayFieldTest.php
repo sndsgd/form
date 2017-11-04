@@ -15,6 +15,23 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider provideIsOneOrMore
+     */
+    public function testIsOneOrMore(bool $value)
+    {
+        $field = new ArrayField("test", new ValueField(), $value);
+        $this->assertSame($value, $field->isOneOrMore());
+    }
+
+    public function provideIsOneOrMore(): array
+    {
+        return [
+            [false],
+            [true],
+        ];
+    }
+
+    /**
      * @dataProvider providerSetDefaultValue
      */
     public function testSetDefaultValue($value, string $exception)
@@ -91,7 +108,7 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
                 [],
             ],
 
-            # fail: one of multiple values fails to validate 
+            # fail: one of multiple values fails to validate
             [
                 $field,
                 [4.2, "abc"],
@@ -122,6 +139,27 @@ class ArrayFieldTest extends \PHPUnit_Framework_TestCase
                 0,
                 [4.2, 4.2],
             ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideValidateOneOrMore
+     */
+    public function testValidateOneOrMore($valueField, $values, $expect)
+    {
+        $field = new ArrayField("", $valueField, true);
+        $form = new \sndsgd\Form();
+        $validator = new \sndsgd\form\Validator($form);
+        $this->assertSame($expect, $field->validate($values, $validator));
+    }
+
+    public function provideValidateOneOrMore(): array
+    {
+        return [
+            [new ValueField(), 1, [1]],
+            [new ValueField(), [1, 2], [1, 2]],
+            [new ValueField(), "abc", ["abc"]],
+            [new ValueField(), ["abc", 42], ["abc", 42]],
         ];
     }
 
