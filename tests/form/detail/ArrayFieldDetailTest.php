@@ -17,9 +17,9 @@ class ArrayFieldDetailTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider providerGetSignature
      */
-    public function testGetSignature($valueField, $expect)
+    public function testGetSignature($valueField, $isOneOrMore, $expect)
     {
-        $field = new field\ArrayField("test", $valueField);
+        $field = new field\ArrayField("test", $valueField, $isOneOrMore);
         $detail = new ArrayFieldDetail($field);
         $this->assertSame($expect, $detail->getSignature());
     }
@@ -27,10 +27,15 @@ class ArrayFieldDetailTest extends \PHPUnit_Framework_TestCase
     public function providerGetSignature()
     {
         return [
-            [new field\StringField(), "array<string>"],
-            [new field\IntegerField(), "array<integer>"],
-            [new field\FloatField(), "array<float>"],
-            [new field\BooleanField(), "array<boolean>"],
+            [new field\StringField(), false, "array<string>"],
+            [new field\IntegerField(), false, "array<integer>"],
+            [new field\FloatField(), false, "array<float>"],
+            [new field\BooleanField(), false, "array<boolean>"],
+
+            [new field\StringField(), true, "string|array<string>"],
+            [new field\IntegerField(), true, "integer|array<integer>"],
+            [new field\FloatField(), true, "float|array<float>"],
+            [new field\BooleanField(), true, "boolean|array<boolean>"],
         ];
     }
 
