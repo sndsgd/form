@@ -29,15 +29,12 @@ class NumericRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        if ($value === 0 || is_numeric($value)) {
-            $value = floatval($value);
-            return true;
+        if ($value !== 0 && !is_numeric($value)) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
         }
-        return false;
+
+        return floatval($value);
     }
 }

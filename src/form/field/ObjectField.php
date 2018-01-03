@@ -23,7 +23,7 @@ class ObjectField extends FieldAbstract
                     "failed to add field; '$name' is already defined"
                 );
             }
-            $this->fields[$name] = $field->setParent($this);
+            $this->fields[$name] = $field;
         }
         return $this;
     }
@@ -56,6 +56,7 @@ class ObjectField extends FieldAbstract
     {
         $ret = [];
         foreach ($this->fields as $name => $field) {
+            $validator->appendName($name);
             if (isset($values[$name])) {
                 $value = $values[$name];
                 unset($values[$name]);
@@ -64,15 +65,15 @@ class ObjectField extends FieldAbstract
             }
 
             $ret[$name] = $field->validate($value, $validator);
+            $validator->popName();
         }
 
         # create unknown field errors for the remaining fields
         if (!$validator->getOptions()->getAllowUnknownFields() && !empty($values)) {
-            $nameDelimiter = $validator->getOptions()->getNameDelimiter();
             foreach ($values as $name => $vals) {
                 $validator->addError(
-                    $this->getNestedName($nameDelimiter, $name),
-                    "unknown field"
+                    "unknown field",
+                    $validator->getName($name)
                 );
             }
         }

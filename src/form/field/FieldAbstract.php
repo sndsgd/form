@@ -7,13 +7,6 @@ use \sndsgd\form\rule\RuleInterface;
 abstract class FieldAbstract implements FieldInterface
 {
     /**
-     * A field may be the child of another field
-     *
-     * @var \sndsgd\form\field\FieldInterface
-     */
-    protected $parent;
-
-    /**
      * The name of the field
      *
      * @var string
@@ -46,55 +39,13 @@ abstract class FieldAbstract implements FieldInterface
     }
 
     /**
-     * Set the name of the field
-     * Allows parent fields to update the name before validating
-     *
-     * @param string $name
-     */
-    public function setName(string $name = ""): FieldInterface
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
      * Get the name of the field
      *
-     * @param array<string> $keys The nested names of parents
-     * @param string $delimiter A string to use when joining the name
      * @return string
      */
-    public function getName(array $keys = [], string $delimiter = "."): string
+    public function getName(): string
     {
-        if (empty($keys)) {
-            return $this->name;
-        }
-
-        $keys[] = $this->name;
-        return implode($delimiter, $keys);
-    }
-
-    /**
-     * Get a field's nested name
-     *
-     * @param string $delimiter
-     * @param string $name A name to append to the result
-     * @return string
-     */
-    public function getNestedName(
-        string $delimiter = ".",
-        string $name = ""
-    ): string
-    {
-        $keys = array_filter([$this->name, $name], "strlen");
-        $parent = $this;
-        while ($parent = $parent->getParent()) {
-            $name = $parent->getName();
-            if ($name) {
-                array_unshift($keys, $parent->getName());
-            }
-        }
-        return implode($delimiter, $keys);
+        return $this->name;
     }
 
     public function setDescription(string $description): FieldInterface
@@ -106,20 +57,6 @@ abstract class FieldAbstract implements FieldInterface
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function setParent(FieldInterface $field): FieldInterface
-    {
-        $this->parent = $field;
-        return $this;
-    }
-
-    /**
-     * @return \sndsgd\form\field\FieldInterface|null
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 
     public function setDefaultValue($defaultValue): FieldInterface

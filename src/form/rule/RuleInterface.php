@@ -43,7 +43,7 @@ interface RuleInterface
     /**
      * @param mixed $value The value to validate
      * @param \sndsgd\form\Validator $validator
-     * @return bool
+     * @return mixed The updated value
      */
-    public function validate(&$value, \sndsgd\form\Validator $validator = null): bool;
+    public function validate($value, \sndsgd\form\Validator $validator = null);
 }

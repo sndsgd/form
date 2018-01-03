@@ -36,7 +36,7 @@ class ArrayField extends ParentFieldAbstract
         }
 
         parent::__construct($name);
-        $this->valueField = $valueField->setParent($this);
+        $this->valueField = $valueField;
         $this->isOneOrMore = $isOneOrMore;
         $this->defaultValue = [];
     }
@@ -86,13 +86,14 @@ class ArrayField extends ParentFieldAbstract
 
         $ret = [];
         foreach (array_values($values) as $index => $value) {
-            $result = $this->valueField
-                ->setName($index)
-                ->validate($value, $validator);
+            $validator->appendName($index);
+            $result = $this->valueField->validate($value, $validator);
 
             if (!is_null($result)) {
                 $ret[] = $result;
             }
+
+            $validator->popName();
         }
 
         return $ret;

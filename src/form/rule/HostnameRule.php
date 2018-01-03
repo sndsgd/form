@@ -29,16 +29,17 @@ class HostnameRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         $url = parse_url($value);
-        return (
+        if (
             is_array($url) &&
             array_key_exists("scheme", $url) &&
             array_key_exists("host", $url)
-        );
+        ) {
+            return $value;
+        }
+
+        throw new \sndsgd\form\RuleException($this->getErrorMessage());
     }
 }

@@ -29,11 +29,12 @@ class AlphaNumRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        return ctype_alnum($value);
+        if (!ctype_alnum($value)) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
     }
 }

@@ -49,22 +49,23 @@ class IpAddressRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         list($ip, $port) = array_pad(explode(":", $value), 2, null);
 
         if (!filter_var($ip, FILTER_VALIDATE_IP)) {
-            return false;
+            throw new \sndsgd\form\RuleException("'$ip' is not a valid ip address");
         }
 
         if (!$this->requirePort && $port === null) {
-            return true;
+            return $value;
         }
 
         $intPort = intval($port);
-        return ($port == $intPort && $intPort > 0 && $intPort <= 65535);
+        if ($port == $intPort && $intPort > 0 && $intPort <= 65535) {
+            return $value;
+        }
+
+        throw new \sndsgd\form\RuleException("'$port' is not a valid port");
     }
 }

@@ -70,13 +70,6 @@ class FieldAbstractTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($description, $this->field->getDescription());
     }
 
-    public function testSetGetParent()
-    {
-        $parent = $this->getMockForAbstractClass(FieldAbstract::class);
-        $this->field->setParent($parent);
-        $this->assertSame($parent, $this->field->getParent());
-    }
-
     public function testSetGetDefaultValue()
     {
         $value = 42;
@@ -108,7 +101,7 @@ class FieldAbstractTest extends \PHPUnit_Framework_TestCase
             // duplicate rules
             [
                 [
-                    new \sndsgd\form\rule\RequiredRule(), 
+                    new \sndsgd\form\rule\RequiredRule(),
                     new \sndsgd\form\rule\RequiredRule(),
                 ],
                 \sndsgd\form\DuplicateRuleException::class,

@@ -29,29 +29,25 @@ class BooleanRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if (is_bool($value)) {
-            return true;
-        } elseif (is_int($value)) {
-            if ($value === 0) {
-                $value = false;
-                return true;
-            } elseif ($value === 1) {
-                $value = true;
-                return true;
-            }
-            return false;
-        } elseif (is_string($value)) {
-            if (($newValue = \sndsgd\Str::toBoolean($value)) !== null) {
-                $value = $newValue;
-                return true;
-            }
-            return false;
+            return $value;
         }
-        return false;
+
+        if (is_int($value)) {
+            if ($value === 0) {
+                return false;
+            } elseif ($value === 1) {
+                return true;
+            }
+        } elseif (is_string($value)) {
+            $value = \sndsgd\Str::toBoolean($value);
+            if ($value !== null) {
+                return $value;
+            }
+        }
+
+        throw new \sndsgd\form\RuleException("must be a boolean");
     }
 }

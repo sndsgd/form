@@ -29,16 +29,16 @@ class IntegerRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(&$value, \sndsgd\form\Validator $validator = null): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if (
-            is_bool($value) === false &&
+            !is_bool($value) &&
             $value !== null &&
-            ($newValue = filter_var($value, FILTER_VALIDATE_INT)) !== false
+            ($value = filter_var($value, FILTER_VALIDATE_INT)) !== false
         ) {
-            $value = $newValue;
-            return true;
+            return $value;
         }
-        return false;
+
+        throw new \sndsgd\form\RuleException("must be an integer");
     }
 }

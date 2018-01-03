@@ -58,12 +58,18 @@ class MaxValueCountRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        $count = is_array($value) ? count($value) : 1;
-        return ($count <= $this->maxValues);
+        if (!is_array($value)) {
+            throw new \LogicException(
+                "refusing to perform validation due to an unexpected type"
+            );
+        }
+
+        if ($count > $this->maxValues) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
     }
 }

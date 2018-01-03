@@ -6,7 +6,7 @@ class ValidatorOptions
 {
     const DEFAULT_FIELD_TYPE = "field";
 
-    protected $nameDelimiter = " 》";
+    protected $nameDelimiter = ".";
     protected $fieldType = self::DEFAULT_FIELD_TYPE;
     protected $allowUnknownFields = false;
 

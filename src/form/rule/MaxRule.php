@@ -50,14 +50,18 @@ class MaxRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        return (
-            (is_int($value) || is_float($value)) &&
-            $value <= $this->max
-        );
+        if (!is_int($value) && !is_float($value)) {
+            throw new \LogicException(
+                "refusing to perform validation due to an unexpected type"
+            );
+        }
+
+        if ($value > $this->max) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
     }
 }

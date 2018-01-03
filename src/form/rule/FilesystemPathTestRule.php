@@ -99,10 +99,7 @@ class FilesystemPathTestRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if ($value instanceof \sndsgd\fs\entity\EntityInterface) {
             $entity = $value;
@@ -113,10 +110,9 @@ class FilesystemPathTestRule extends RuleAbstract
         }
 
         if (!$entity->test($this->tests)) {
-            return false;
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
         }
 
-        $value = $entity;
-        return true;
+        return $value;
     }
 }

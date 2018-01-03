@@ -25,10 +25,7 @@ class WritablePathRule extends \sndsgd\form\rule\RuleAbstract
             : _("must be a writable file path");
     }
 
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if ($value instanceof \sndsgd\fs\entity\EntityInterface) {
             $entity = $value;
@@ -38,6 +35,10 @@ class WritablePathRule extends \sndsgd\form\rule\RuleAbstract
             $entity = \sndsgd\Fs::file($value);
         }
 
-        return $entity->canWrite();
+        if (!$entity->canWrite()) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
     }
 }

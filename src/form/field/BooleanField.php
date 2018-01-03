@@ -14,4 +14,14 @@ class BooleanField extends ValueField
     {
         return "boolean";
     }
+
+    public function setDefaultValue($defaultValue): FieldInterface
+    {
+        if (!is_bool($defaultValue)) {
+            throw new \InvalidArgumentException("expecting a boolean");
+        }
+
+        $this->defaultValue = $defaultValue;
+        return $this;
+    }
 }

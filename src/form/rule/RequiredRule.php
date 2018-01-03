@@ -29,11 +29,12 @@ class RequiredRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        return ($value !== null && $value !== "");
+        if ($value === null || $value === "") {
+            throw new \sndsgd\form\RuleException("required");
+        }
+
+        return $value;
     }
 }

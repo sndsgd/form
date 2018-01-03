@@ -17,7 +17,10 @@ class RegexRule extends RuleAbstract
     /**
      * @param string $regex The regex to use in validation
      */
-    public function __construct(string $regex)
+    public function __construct(
+        string $regex,
+        string $errorMessage
+    )
     {
         if (@preg_match($regex, null) === false) {
             throw new \InvalidArgumentException(
@@ -26,6 +29,7 @@ class RegexRule extends RuleAbstract
             );
         }
         $this->regex = $regex;
+        $this->errorMessage = $errorMessage;
     }
 
     /**
@@ -50,11 +54,45 @@ class RegexRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
+    public function validate($value, \sndsgd\form\Validator $validator = null)
+    {
+        if (preg_match($this->regex, $value) !== 1) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
+    }
+
+    /**
+     * A boolean function for testing values
+     *
+     * @param [type] $value [description]
+     * @param \sndsgd\form\Validator|null $validator [description]
+     * @return bool
+     */
+    public function isValid(
+        $value,
         \sndsgd\form\Validator $validator = null
     ): bool
     {
-        return preg_match($this->regex, $value) === 1;
+        try {
+            $this->verify($value, $validator);
+            return true;
+        } catch (\sndsgd\form\RuleException $ex) {
+            return false;
+        }
+    }
+
+    public function verify($value, $validator)
+    {
+        if (!is_string($value)) {
+            throw new \sndsgd\form\RuleException("expecting a string");
+        }
+
+        if (preg_match($this->regex, $value) !== 1) {
+            throw new \sndsgd\form\RuleException($this->errorMessage);
+        }
+
+        return $value;
     }
 }

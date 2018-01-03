@@ -58,11 +58,12 @@ class MaxLengthRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        return (strlen($value) <= $this->maxLength);
+        if (strlen($value) > $this->maxLength) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
     }
 }

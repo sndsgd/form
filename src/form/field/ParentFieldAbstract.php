@@ -15,37 +15,28 @@ abstract class ParentFieldAbstract extends FieldAbstract
         string $expectType,
         $values,
         \sndsgd\form\Validator $validator
-    ): bool
+    )
     {
         if (
             !$this->hasRule(FieldInterface::REQUIRED) &&
             (is_null($values) || is_array($values) && empty($values))
         ) {
-            return false;
+            return $values;
         }
 
         if (!is_array($values)) {
-            $validator->addError(
-                $this->getNestedName($validator->getOptions()->getNameDelimiter()),
-                $this->getUnexpectedTypeMessage($expectType, $values)
-            );
-            return false;
+            $message = $this->getUnexpectedTypeMessage($expectType, $values);
+            throw new \sndsgd\form\RuleException($message);
         }
 
         # verify the parent field rules
         # these should never have any impact on the values, but should be
         # used to verify all given values are acceptable together
         foreach ($this->rules as $rule) {
-            if (!$rule->validate($values, $validator)) {
-                $validator->addError(
-                    $this->getNestedName($validator->getOptions()->getNameDelimiter()),
-                    $rule->getErrorMessage()
-                );
-                return false;
-            }
+            $rule->validate($values, $validator);
         }
 
-        return true;
+        return $values;
     }
 
     protected function getUnexpectedTypeMessage(string $type, $value): string

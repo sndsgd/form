@@ -29,16 +29,13 @@ class EmailRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        $email = filter_var($value, FILTER_VALIDATE_EMAIL);
-        if ($email !== false) {
-            $value = $email;
-            return true;
+        $value = filter_var($value, FILTER_VALIDATE_EMAIL);
+        if (!$value) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
         }
-        return false;
+
+        return $value;
     }
 }

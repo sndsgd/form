@@ -64,16 +64,13 @@ class OptionRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         $lcValue = strtolower($value);
         if (!isset($this->options[$lcValue])) {
-            return false;
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
         }
-        $value = $this->options[$lcValue];
-        return true;
+
+        return $this->options[$lcValue];
     }
 }

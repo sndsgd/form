@@ -29,26 +29,22 @@ class FloatRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if (is_string($value)) {
             if (
                 preg_match("/^-?\d+\\.?\d+?$/", $value) &&
-                ($newValue = filter_var($value, FILTER_VALIDATE_FLOAT)) !== false
+                ($value = filter_var($value, FILTER_VALIDATE_FLOAT)) !== false
             ) {
-                $value = $newValue;
-                return true;
+                return $value;
             }
         } elseif (
-            is_bool($value) === false &&
-            ($newValue = filter_var($value, FILTER_VALIDATE_FLOAT)) !== false
+            !is_bool($value) &&
+            ($value = filter_var($value, FILTER_VALIDATE_FLOAT)) !== false
         ) {
-            $value = $newValue;
-            return true;
+            return $value;
         }
-        return false;
+
+        throw new \sndsgd\form\RuleException($this->getErrorMessage());
     }
 }

@@ -56,28 +56,22 @@ class DateTimeRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if ($this->format === "") {
             try {
-                $date = new \DateTime($value);
-                $value = $date;
-                return true;
+                return new \DateTime($value);
             } catch (\Exception $ex) {
-                echo $ex->getMessage();
-                return false;
+                # Failed to parse time string (#$%^&*) at position 0 (#): Unexpected character
+                throw new \sndsgd\form\RuleException($this->getErrorMessage());
             }
         }
 
         $date = \DateTime::createFromFormat($this->format, $value);
         if (!$date || $date->format($this->format) !== $value) {
-            return false;
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
         }
 
-        $value = $date;
-        return true;
+        return $date;
     }
 }

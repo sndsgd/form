@@ -31,12 +31,12 @@ class ClosureRule extends RuleAbstract
      */
     public function __construct(callable $handler)
     {
-        if (!$this->verifyHandler($handler)) {
+        if (!$this->isValidHandler($handler)) {
             throw new \InvalidArgumentException(
                 "invalid value provided for 'handler'; ".
                 "expecting either a valid function / static method name as ".
                 "string or a closure with the following signature: ".
-                "`function(&\$value, \sndsgd\form\Validator \$validator = null): bool`"
+                "`function(\$value, \\sndsgd\\form\\Validator \$validator = null)`"
             );
         }
 
@@ -49,7 +49,7 @@ class ClosureRule extends RuleAbstract
      * @param callable $func
      * @return bool
      */
-    private function verifyHandler(callable $func): bool
+    private function isValidHandler(callable $func): bool
     {
         $reflection = Func::getReflection($func);
         $params = $reflection->getParameters();
@@ -63,11 +63,7 @@ class ClosureRule extends RuleAbstract
         # - have no typehint
         # - not be optional
         # - be passed by reference
-        if (
-            $value->getType() !== null ||
-            $value->isOptional()
-            //!$value->isPassedByReference()
-        ) {
+        if ($value->getType() !== null || $value->isOptional()) {
             return false;
         }
 
@@ -84,9 +80,8 @@ class ClosureRule extends RuleAbstract
             return false;
         }
 
-        # return type must be boolean
-        $returnType = $reflection->getReturnType();
-        if (!$returnType || (string) $returnType !== "bool") {
+        # must not have a return type
+        if ($reflection->getReturnType()) {
             return false;
         }
 
@@ -134,11 +129,11 @@ class ClosureRule extends RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
-        return call_user_func($this->handler, $value, $validator);
+        # using `call_user_func()` here doesn't pass `$value` by reference
+        # PHP Warning: Parameter 1 expected to be a reference, value given
+        $func = $this->handler;
+        return $func($value, $validator);
     }
 }

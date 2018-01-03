@@ -71,22 +71,21 @@ class UrlRule extends RuleAbstract
      * Note: `filter_var()` with `FILTER_VALIDATE_URL` doesn't seem to be
      * able to handle non ascii charsets
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         $url = parse_url($value);
         if (!is_array($url)) {
-            return false;
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
         }
 
         foreach ($this->requiredParts as $part) {
             if (!isset($url[$part])) {
-                return false;
+                throw new \sndsgd\form\RuleException(
+                    "must contain a '$part' component"
+                );
             }
         }
 
-        return true;
+        return $value;
     }
 }

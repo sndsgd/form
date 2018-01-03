@@ -28,8 +28,8 @@ class MapField extends ParentFieldAbstract
     )
     {
         parent::__construct($name);
-        $this->keyField = $keyField->setParent($this);
-        $this->valueField = $valueField->setParent($this);
+        $this->keyField = $keyField;
+        $this->valueField = $valueField;
     }
 
     /**
@@ -47,29 +47,33 @@ class MapField extends ParentFieldAbstract
      */
     public function validate($values, \sndsgd\form\Validator $validator)
     {
-        if (!$this->validateCollection("map", $values, $validator)) {
+        try {
+            $values = $this->validateCollection("map", $values, $validator);
+        } catch (\sndsgd\form\RuleException $ex) {
+            $validator->addError($ex->getClientMessage());
             return [];
         }
 
         # validate each value pair
         $ret = [];
         foreach ($values as $key => $value) {
+            $validator->appendName($key);
 
-            $key = $this->keyField
-                ->setName($key)
-                ->validate($key, $validator);
-
-            if ($key === null) {
-                continue;
-            }
-
-            $value = $this->valueField
-                ->setName($key)
-                ->validate($value, $validator);
-
-            if ($value !== null) {
+            try {
+                $isKey = true;
+                $key = $this->keyField->validate($key, $validator);
+                $isKey = false;
+                $value = $this->valueField->validate($value, $validator);
                 $ret[$key] = $value;
+            } catch (\sndsgd\form\RuleException $ex) {
+                $prefix = $isKey ? "invalid key; " : "";
+                $validator->addError($prefix.$ex->getClientMessage());
+
+                # @todo make this the empty version of the valueField type
+                $ret[$key] = null;
             }
+
+            $validator->popName();
         }
 
         return $ret;

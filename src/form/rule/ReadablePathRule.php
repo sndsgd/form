@@ -25,10 +25,7 @@ class ReadablePathRule extends \sndsgd\form\rule\RuleAbstract
             : _("must be a readable file path");
     }
 
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if ($value instanceof \sndsgd\fs\entity\EntityInterface) {
             $entity = $value;
@@ -38,6 +35,10 @@ class ReadablePathRule extends \sndsgd\form\rule\RuleAbstract
             $entity = \sndsgd\Fs::file($value);
         }
 
-        return $entity->test(\sndsgd\Fs::EXISTS | \sndsgd\Fs::READABLE);
+        if (!$entity->test(\sndsgd\Fs::EXISTS | \sndsgd\Fs::READABLE)) {
+            throw new \sndsgd\form\RuleException($this->getErrorMessage());
+        }
+
+        return $value;
     }
 }

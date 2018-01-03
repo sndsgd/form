@@ -14,4 +14,14 @@ class FloatField extends ValueField
     {
         return "float";
     }
+
+    public function setDefaultValue($defaultValue): FieldInterface
+    {
+        if (!is_float($defaultValue)) {
+            throw new \InvalidArgumentException("expecting a float");
+        }
+
+        $this->defaultValue = $defaultValue;
+        return $this;
+    }
 }

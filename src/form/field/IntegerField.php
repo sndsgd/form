@@ -14,4 +14,14 @@ class IntegerField extends ValueField
     {
         return "integer";
     }
+
+    public function setDefaultValue($defaultValue): FieldInterface
+    {
+        if (!is_int($defaultValue)) {
+            throw new \InvalidArgumentException("expecting an integer");
+        }
+
+        $this->defaultValue = $defaultValue;
+        return $this;
+    }
 }

@@ -12,15 +12,6 @@ class ValueField extends FieldAbstract
     protected $type = "";
 
     /**
-     * @param string $type
-     */
-    public function setType(string $type): FieldInterface
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getType(): string
@@ -29,36 +20,17 @@ class ValueField extends FieldAbstract
     }
 
     /**
-     * Set the default value for the field
-     *
-     * @param mixed $defaultValue A scalar value
-     * @return \sndsgd\form\field\ValueField
-     * @throws \InvalidArgumentException
-     */
-    public function setDefaultValue($defaultValue): FieldInterface
-    {
-        if (!is_scalar($defaultValue) && !is_null($defaultValue)) {
-            throw new \InvalidArgumentException(
-                "invalid value provided for 'defaultValue'; ".
-                "expecting either a scalar or null value"
-            );
-        }
-        $this->defaultValue = $defaultValue;
-        return $this;
-    }
-
-    /**
      * @inheritDoc
      */
     public function validate($values, \sndsgd\form\Validator $validator)
     {
+        # @todo can the "use first element of an array" logic be nuked?
         if (is_array($values)) {
             $len = count($values);
             if ($len > 1) {
-                $validator->addError(
-                    $this->getNestedName($validator->getOptions()->getNameDelimiter()),
-                    "expecting a single value; encountered $len"
-                );
+                $noun = \sndsgd\Arr::isIndexed($values) ? "array" : "object";
+                $message = "expecting a scalar value; $noun encountered";
+                $validator->addError($message);
                 return null;
             }
             $values = $values[0];
@@ -71,14 +43,13 @@ class ValueField extends FieldAbstract
             return $this->defaultValue;
         }
 
-        foreach ($this->rules as $rule) {
-            if (!$rule->validate($values, $validator)) {
-                $validator->addError(
-                    $this->getNestedName($validator->getOptions()->getNameDelimiter()),
-                    $rule->getErrorMessage()
-                );
-                return null;
+        try {
+            foreach ($this->rules as $rule) {
+                $values = $rule->validate($values, $validator);
             }
+        } catch (\sndsgd\form\RuleException $ex) {
+            $validator->addError($ex->getClientMessage());
+            return null;
         }
 
         return $values;

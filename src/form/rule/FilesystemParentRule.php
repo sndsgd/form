@@ -57,10 +57,7 @@ class FilesystemParentRule extends \sndsgd\form\rule\RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         if ($value instanceof \sndsgd\fs\entity\EntityInterface) {
             $file = $value;
@@ -70,9 +67,10 @@ class FilesystemParentRule extends \sndsgd\form\rule\RuleAbstract
 
         foreach ($this->parentPaths as $parent) {
             if (strpos($file, $parent) === 0) {
-                return true;
+                return $value;
             }
         }
-        return false;
+
+        throw new \sndsgd\form\RuleException($this->getErrorMessage());
     }
 }

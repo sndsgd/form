@@ -60,16 +60,14 @@ class FileExtensionRule extends \sndsgd\form\rule\RuleAbstract
     /**
      * @inheritDoc
      */
-    public function validate(
-        &$value,
-        \sndsgd\form\Validator $validator = null
-    ): bool
+    public function validate($value, \sndsgd\form\Validator $validator = null)
     {
         $file = \sndsgd\Fs::file($value);
         $extension = strtolower($file->getExtension());
         if (!in_array($extension, $this->extensions)) {
-            return false;
+            return $this->getErrorMessage();
         }
-        return true;
+
+        return $value;
     }
 }
